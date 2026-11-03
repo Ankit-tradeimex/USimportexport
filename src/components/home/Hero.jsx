@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import TickerBar from "./TickerBar";
 import { HiArrowLongRight } from "react-icons/hi2";
+import { Typewriter } from "react-simple-typewriter";
 import Link from "next/link";
 import Image from "next/image";
 import Stats from "../common/Stats";
@@ -25,9 +26,24 @@ export default function Hero() {
             </span>
 
             <h1 className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight text-neutral-950 sm:text-6xl lg:text-7xl">
-              The Best U.S. <br />Import-Export Trade 
-              
-              <span className="bg-linear-to-r from-[#B31942] to-[#0A3161] bg-clip-text text-transparent">&nbsp;Data Provider.</span>
+              The Best U.S. <br />Import-Export {" "}
+              <span className="inline-grid align-baseline">
+                {/* invisible longest phrase keeps the heading from jumping */}
+                <span className="invisible col-start-1 row-start-1 whitespace-nowrap" aria-hidden="true">
+                  Intelligence Partner.
+                </span>
+                <span className="col-start-1 row-start-1 whitespace-nowrap bg-linear-to-r from-[#B31942] to-[#0A3161] bg-clip-text text-transparent">
+                  <Typewriter
+                    words={["Trade Data Provider.", "Data Platform.", "Intelligence Partner.", "Research Platform."]}
+                    loop={0}          // 0 = repeat forever
+                    cursor
+                    cursorStyle="|"
+                    typeSpeed={70}
+                    deleteSpeed={40}
+                    delaySpeed={1800} // how long each phrase stays before deleting
+                  />
+                </span>
+              </span>
             </h1>
 
             <p className="mt-6 max-w-md text-sm leading-relaxed text-neutral-600">
