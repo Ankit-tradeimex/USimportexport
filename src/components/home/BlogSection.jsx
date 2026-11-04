@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { MotionConfig, motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, ImageIcon } from "lucide-react";
-import Link from "next/link";
+import { MotionConfig, motion } from 'framer-motion';
+import { ArrowRight, ArrowUpRight, ImageIcon } from 'lucide-react';
+import Link from 'next/link';
+import AnimatedText from '../utils/AnimatedText';
 
 /* ------------------------------------------------------------------ */
 /* PLACEHOLDER posts: replace titles, excerpt, dates and links.        */
@@ -10,43 +11,40 @@ import Link from "next/link";
 /* (e.g. "/blog/featured.jpg") and the photo fills the slot.           */
 /* ------------------------------------------------------------------ */
 const FEATURED = {
-  slug: "how-to-find-us-buyers-using-import-data",
-  title: "10 Tips to Find Verified US Buyers Using Import Data",
+  slug: 'how-to-find-us-buyers-using-import-data',
+  title: '10 Tips to Find Verified US Buyers Using Import Data',
   excerpt:
-    "Finding the right buyers is the hardest part of exporting to the US. This article gives ten actionable tips to help you search shipment records, shortlist qualified importers, and start conversations with confidence.",
-  image: "/assets/images/1.webp", // add image here, recommended 1200 x 750 px
+    'Finding the right buyers is the hardest part of exporting to the US. This article gives ten actionable tips to help you search shipment records, shortlist qualified importers, and start conversations with confidence.',
+  image: '/assets/images/1.webp', // add image here, recommended 1200 x 750 px
 };
 
 const SIDE_POSTS = [
   {
-    slug: "understanding-hs-codes",
-    title: "HS Codes Explained: Why They Matter for Trade Research",
-    read: "5 min read",
-    date: "21 Oct 2026",
-    image: "/assets/images/1.webp", // add image here, recommended 600 x 400 px
+    slug: 'understanding-hs-codes',
+    title: 'HS Codes Explained: Why They Matter for Trade Research',
+    read: '5 min read',
+    date: '21 Oct 2026',
+    image: '/assets/images/1.webp', // add image here, recommended 600 x 400 px
   },
   {
-    slug: "reading-us-trade-trends",
-    title: "How to Read US Trade Trends Before Your Competitors",
-    read: "6 min read",
-    date: "7 Oct 2026",
-    image: "/assets/images/2.webp", // add image here, recommended 600 x 400 px
+    slug: 'reading-us-trade-trends',
+    title: 'How to Read US Trade Trends Before Your Competitors',
+    read: '6 min read',
+    date: '7 Oct 2026',
+    image: '/assets/images/2.webp', // add image here, recommended 600 x 400 px
   },
   {
-    slug: "bill-of-lading-data-guide",
+    slug: 'bill-of-lading-data-guide',
     title: "What Is Bill of Lading Data? A Beginner's Guide",
-    read: "4 min read",
-    date: "30 Sep 2026",
-    image: "/assets/images/3.webp", // add image here, recommended 600 x 400 px
+    read: '4 min read',
+    date: '30 Sep 2026',
+    image: '/assets/images/3.webp', // add image here, recommended 600 x 400 px
   },
 ];
 
-
-function ImageSlot({ post, hint, className = "" }) {
+function ImageSlot({ post, hint, className = '' }) {
   return (
-    <div
-      className={`relative overflow-hidden bg-neutral-100 ${className}`}
-    >
+    <div className={`relative overflow-hidden bg-neutral-100 ${className}`}>
       {post.image ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -72,26 +70,33 @@ export default function BlogSection() {
   return (
     <MotionConfig reducedMotion="user">
       <section className="relative overflow-hidden bg-white px-6 py-20 lg:px-10 lg:py-28">
-
         <div className="relative mx-auto max-w-7xl">
           {/* header */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
             className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
           >
             <div className="max-w-2xl">
               <span className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600">
                 Our Blog
               </span>
-              <h2 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl">
-                Latest insights on{" "}
+              {/* <h2 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl">
+                Latest insights on{' '}
                 <span className="bg-linear-to-r from-[#B31942] to-[#0A3161] bg-clip-text text-transparent">
                   US trade
                 </span>
-              </h2>
+              </h2> */}
+              <AnimatedText
+                text="Latest insights on"
+                highlight="US trade"
+                className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl"
+                delay={0.2}
+                stagger={0.08}
+                duration={0.7}
+              />
             </div>
             <a
               href="/blogs"
@@ -113,7 +118,7 @@ export default function BlogSection() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
                 className="group flex flex-col"
               >
                 <Link
@@ -153,7 +158,7 @@ export default function BlogSection() {
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.55, delay: i * 0.1, ease: "easeOut" }}
+                    transition={{ duration: 0.55, delay: i * 0.1, ease: 'easeOut' }}
                     whileHover={{ x: -4 }}
                     className="group relative flex flex-1 gap-4 rounded-3xl"
                   >

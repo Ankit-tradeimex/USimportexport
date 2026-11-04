@@ -1,9 +1,8 @@
+'use client';
 
-"use client";
-
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState } from 'react';
 import {
   Menu,
   X,
@@ -13,24 +12,25 @@ import {
   Building2,
   FileSearch,
   ArrowUpRight,
-} from "lucide-react";
+} from 'lucide-react';
+import ThemeToggle from '../utils/ThemeToggle';
 
 const navLinks = [
   {
-    name: "About",
-    href: "/about",
+    name: 'About',
+    href: '/about',
   },
   {
-    name: "Search Live Data",
-    href: "/search-live-data",
+    name: 'Search Live Data',
+    href: '/search-live-data',
   },
   {
-    name: "Faqs",
-    href: "/faqs",
+    name: 'Faqs',
+    href: '/faqs',
   },
-    {
-    name: "Blogs",
-    href: "/blogs",
+  {
+    name: 'Blogs',
+    href: '/blogs',
   },
 ];
 
@@ -41,24 +41,22 @@ export default function Navbar() {
 
   const dataLinks = [
     {
-      name: "US Import Data",
-      description: "Explore incoming shipments and US import records.",
-      href: "/import-data",
+      name: 'US Import Data',
+      description: 'Explore incoming shipments and US import records.',
+      href: '/import-data',
       icon: Ship,
     },
     {
-      name: "US Export Data",
-      description: "Discover outgoing shipments and export records.",
-      href: "/export-data",
+      name: 'US Export Data',
+      description: 'Discover outgoing shipments and export records.',
+      href: '/export-data',
       icon: Globe2,
     },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md">
-
+    <header className="sticky top-0 z-50 w-full bg-white dark:bg-transparent backdrop-blur-md">
       <nav className="mx-auto flex w-full items-center justify-between px-5 py-3 lg:px-10">
-
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <Image
@@ -72,12 +70,11 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-10 lg:flex">
-
           {navLinks.slice(0, 1).map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="font-heading text-base font-semibold text-black transition-colors hover:text-[#B31942]"
+              className="font-heading text-base font-semibold text-black dark:text-white transition-colors hover:text-[#B31942]"
             >
               {link.name}
             </Link>
@@ -92,36 +89,28 @@ export default function Navbar() {
             <button
               onClick={() => setDataOpen(!dataOpen)}
               onKeyDown={(e) => {
-                if (e.key === "Escape") setDataOpen(false);
+                if (e.key === 'Escape') setDataOpen(false);
               }}
               aria-expanded={dataOpen}
               aria-haspopup="true"
               className={`flex items-center gap-1.5 font-heading text-base font-semibold transition-colors ${
-                dataOpen
-                  ? "text-[#B31942]"
-                  : "text-black hover:text-[#B31942]"
+                dataOpen ? 'text-[#B31942]' : 'text-black dark:text-white hover:text-[#B31942]'
               }`}
             >
               Data
-
               <ChevronDown
                 size={16}
-                className={`transition-transform duration-200 ${
-                  dataOpen ? "rotate-180" : ""
-                }`}
+                className={`transition-transform duration-200 ${dataOpen ? 'rotate-180' : ''}`}
               />
             </button>
 
             {/* Dropdown Menu */}
             <div
               className={`absolute left-1/2 top-full z-50 w-[390px] -translate-x-1/2 pt-5 transition-all duration-200 ${
-                dataOpen
-                  ? "visible translate-y-0 opacity-100"
-                  : "invisible translate-y-2 opacity-0"
+                dataOpen ? 'visible translate-y-0 opacity-100' : 'invisible translate-y-2 opacity-0'
               }`}
             >
               <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-[0_15px_50px_rgba(15,23,42,0.12)]">
-
                 <div className="px-3 pb-3 pt-2">
                   <p className="font-heading text-xs font-bold uppercase tracking-wider text-slate-400">
                     Explore Trade Data
@@ -165,7 +154,6 @@ export default function Navbar() {
                     Access US trade intelligence in one place.
                   </p>
                 </div>
-
               </div>
             </div>
           </div>
@@ -175,19 +163,19 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="font-heading text-base font-semibold text-black transition-colors hover:text-[#B31942]"
+              className="font-heading text-base font-semibold text-black dark:text-white transition-colors hover:text-[#B31942]"
             >
               {link.name}
             </Link>
           ))}
-
         </div>
 
         {/* Desktop Actions */}
         <div className="hidden items-center gap-6 lg:flex">
+          <ThemeToggle />
           <Link
             href="/login"
-            className="font-heading text-base font-semibold text-black transition hover:text-[#B31942]"
+            className="font-heading text-base font-semibold text-black dark:text-white transition hover:text-[#B31942]"
           >
             Login
           </Link>
@@ -210,47 +198,39 @@ export default function Navbar() {
         >
           {mobileOpen ? <X size={25} /> : <Menu size={25} />}
         </button>
-
       </nav>
 
       {/* Mobile Navigation */}
       {mobileOpen && (
-        <div className="border-t border-slate-100 bg-white px-5 py-5 shadow-lg lg:hidden">
-
+        <div className="bg-white dark:bg-slate-950 px-5 py-5 shadow-lg lg:hidden">
           <div className="flex flex-col">
-
             {navLinks.slice(0, 1).map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="py-3 font-heading text-sm font-semibold text-slate-700"
+                className="py-3 font-heading text-sm font-semibold text-slate-700 dark:text-white transition-colors hover:text-[#B31942]"
               >
                 {link.name}
               </Link>
             ))}
 
             {/* Mobile Data Dropdown */}
-            <div className="border-b border-slate-100">
-
+            <div className="">
               <button
                 onClick={() => setMobileDataOpen(!mobileDataOpen)}
-                className="flex w-full items-center justify-between py-3 font-heading text-sm font-semibold text-slate-700"
+                className="flex w-full items-center justify-between py-3 font-heading text-sm font-semibold text-slate-700 dark:text-white transition-colors hover:text-[#B31942]"
                 aria-expanded={mobileDataOpen}
               >
                 Data
-
                 <ChevronDown
                   size={18}
-                  className={`transition-transform ${
-                    mobileDataOpen ? "rotate-180" : ""
-                  }`}
+                  className={`transition-transform ${mobileDataOpen ? 'rotate-180' : ''}`}
                 />
               </button>
 
               {mobileDataOpen && (
                 <div className="mb-3 flex flex-col gap-1 pl-3">
-
                   {dataLinks.map((item) => {
                     const Icon = item.icon;
 
@@ -264,17 +244,16 @@ export default function Navbar() {
                         <Icon size={19} className="text-[#B31942]" />
 
                         <div>
-                          <p className="font-heading text-sm font-semibold text-slate-800">
+                          <p className="font-heading text-sm font-semibold text-slate-800 dark:text-white transition-colors hover:text-[#B31942]">
                             {item.name}
                           </p>
-                          <p className="font-body text-xs text-slate-500">
+                          <p className="font-body text-xs text-slate-500 dark:text-white/70">
                             {item.description}
                           </p>
                         </div>
                       </Link>
                     );
                   })}
-
                 </div>
               )}
             </div>
@@ -284,7 +263,7 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="border-b border-slate-100 py-3 font-heading text-sm font-semibold text-slate-700"
+                className="py-3 font-heading text-sm font-semibold text-slate-700 dark:text-white transition-colors hover:text-[#B31942]"
               >
                 {link.name}
               </Link>
@@ -295,7 +274,7 @@ export default function Navbar() {
               <Link
                 href="/login"
                 onClick={() => setMobileOpen(false)}
-                className="py-2 font-heading text-sm font-semibold text-slate-700"
+                className="py-2 font-heading text-sm font-semibold text-slate-700 dark:text-white transition hover:text-[#B31942]"
               >
                 Login
               </Link>
@@ -308,11 +287,9 @@ export default function Navbar() {
                 Get Started
               </Link>
             </div>
-
           </div>
         </div>
       )}
-
     </header>
   );
 }
