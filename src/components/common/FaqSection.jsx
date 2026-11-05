@@ -40,10 +40,10 @@ function Item({ item, open, onToggle, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.45, delay: index * 0.05, ease: 'easeOut' }}
-      className={`overflow-hidden rounded-2xl border bg-white transition-[border-color,box-shadow] duration-300 ${
+      className={`overflow-hidden rounded-2xl border bg-white transition-[border-color,box-shadow] duration-300 dark:bg-transparent dark:bg-linear-to-br dark:from-white/[0.12] dark:to-white/[0.03] dark:backdrop-blur-xl ${
         open
-          ? 'border-[#B31942]/60'
-          : 'border-neutral-200 shadow-[0_2px_10px_rgba(20,20,60,0.04)] hover:border-neutral-300'
+          ? 'border-[#B31942]/60 dark:border-[#ff4d6d]/50 dark:shadow-[0_12px_40px_rgba(77,163,255,0.2)]'
+          : 'border-neutral-200 shadow-[0_2px_10px_rgba(20,20,60,0.04)] hover:border-neutral-300 dark:border-white/10 dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] dark:hover:border-white/25'
       }`}
     >
       <h3>
@@ -57,7 +57,7 @@ function Item({ item, open, onToggle, index }) {
         >
           <span
             className={`text-[15px] font-semibold leading-snug transition-colors sm:text-base ${
-              open ? 'text-neutral-950' : 'text-neutral-800'
+              open ? 'text-neutral-950 dark:text-white' : 'text-neutral-800 dark:text-slate-300'
             }`}
           >
             {item.q}
@@ -66,7 +66,9 @@ function Item({ item, open, onToggle, index }) {
             animate={{ rotate: open ? 135 : 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition-colors ${
-              open ? 'bg-[#B31942] text-white' : 'bg-neutral-100 text-neutral-600'
+              open
+                ? 'bg-[#B31942] text-white'
+                : 'bg-neutral-100 text-neutral-600 dark:bg-white/10 dark:text-slate-300'
             }`}
           >
             <Plus className="h-4 w-4" strokeWidth={2.2} aria-hidden="true" />
@@ -86,7 +88,7 @@ function Item({ item, open, onToggle, index }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
-            <p className="px-5 pb-5 text-sm leading-relaxed text-neutral-600 sm:px-6 sm:pb-6 sm:text-[15px]">
+            <p className="px-5 pb-5 text-sm leading-relaxed text-neutral-600 dark:text-slate-400 sm:px-6 sm:pb-6 sm:text-[15px]">
               {item.a}
             </p>
           </motion.div>
@@ -103,11 +105,20 @@ export default function FaqSection() {
     <MotionConfig reducedMotion="user">
       <section
         id="faq"
-        className="relative overflow-hidden bg-[#f6f9fe] px-6 py-20 lg:px-10 lg:py-28"
+        className="relative overflow-hidden bg-[#f6f9fe] px-6 py-20 dark:bg-slate-950 lg:px-10 lg:py-28"
       >
+        {/* dark mode only: faint grid + colored glows behind the glass */}
+        <div className="pointer-events-none absolute inset-0 hidden dark:block">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)]" />
+          <div className="absolute left-[4%] top-[40%] h-72 w-72 rounded-full bg-[#4da3ff]/20 blur-[110px]" />
+          <div className="absolute right-[6%] top-[38%] h-72 w-72 rounded-full bg-[#ff4d6d]/15 blur-[110px]" />
+          <div className="absolute bottom-[8%] right-[30%] h-64 w-64 rounded-full bg-[#4da3ff]/15 blur-[110px]" />
+          <div className="absolute left-1/2 top-0 h-56 w-[55%] -translate-x-1/2 rounded-full bg-[#4da3ff]/15 blur-[110px]" />
+        </div>
+
         <div className="relative mx-auto max-w-3xl text-center flex flex-col items-center mb-10">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600">
-            <HelpCircle className="h-3 w-3 text-[#B31942]" aria-hidden="true" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-sky-200 dark:backdrop-blur">
+            <HelpCircle className="h-3 w-3 text-[#B31942] dark:text-[#ff7a90]" aria-hidden="true" />
             FAQ
           </span>
           {/* <h2 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl">
@@ -119,12 +130,12 @@ export default function FaqSection() {
           <AnimatedText
             text="Frequently Asked"
             highlight="Questions"
-            className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl"
+            className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 dark:text-white sm:text-5xl"
             delay={0.2}
             stagger={0.08}
             duration={0.7}
           />
-          <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600">
+          <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600 dark:text-slate-400">
             Everything you need to know about US import-export data. Can't find your answer? Our
             team is happy to help.
           </p>
@@ -138,8 +149,15 @@ export default function FaqSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
+              className=""
             >
-              <Image src="/assets/images/faq.webp" alt="FAQ" width={500} height={500} />
+              <Image
+                src="/assets/images/faq.webp"
+                alt="FAQ"
+                width={500}
+                height={500}
+                className="dark:rounded-2xl"
+              />
             </motion.div>
           </div>
 

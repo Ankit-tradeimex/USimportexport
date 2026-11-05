@@ -82,9 +82,9 @@ const initials = (name, i) => String.fromCharCode(65 + (i % 26));
 
 function Card({ t, i }) {
   return (
-    <figure className="relative flex h-full flex-col rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_2px_12px_rgba(20,20,60,0.05)]">
+    <figure className="relative flex h-full flex-col rounded-3xl border border-neutral-200 bg-white p-6 shadow-[0_2px_12px_rgba(20,20,60,0.05)] dark:border-white/10 dark:bg-transparent dark:bg-linear-to-br dark:from-white/[0.12] dark:to-white/[0.03] dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:backdrop-blur-xl">
       <Quote
-        className="absolute right-5 top-5 h-8 w-8 text-[#B31942]/25"
+        className="absolute right-5 top-5 h-8 w-8 text-[#B31942]/25 dark:text-[#ff4d6d]/30"
         strokeWidth={1.5}
         aria-hidden="true"
       />
@@ -93,16 +93,18 @@ function Card({ t, i }) {
           <Star key={k} className="h-4 w-4 fill-current" strokeWidth={0} aria-hidden="true" />
         ))}
       </div>
-      <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-neutral-700">
+      <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-neutral-700 dark:text-slate-300">
         “{t.text}”
       </blockquote>
-      <figcaption className="mt-6 flex items-center gap-3 border-t border-neutral-100 pt-4">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-linear-to-r from-[#B31942] to-[#0A3161] text-sm font-semibold text-white">
+      <figcaption className="mt-6 flex items-center gap-3 border-t border-neutral-100 pt-4 dark:border-white/10">
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-linear-to-r from-[#B31942] to-[#0A3161] text-sm font-semibold text-white dark:to-[#4da3ff]">
           {initials(t.name, i)}
         </span>
         <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-neutral-950">{t.name}</p>
-          <p className="truncate text-xs text-neutral-500">{t.role}</p>
+          <p className="truncate text-sm font-semibold text-neutral-950 dark:text-white">
+            {t.name}
+          </p>
+          <p className="truncate text-xs text-neutral-500 dark:text-slate-400">{t.role}</p>
         </div>
       </figcaption>
     </figure>
@@ -116,7 +118,7 @@ function ArrowButton({ innerRef, dir }) {
       ref={innerRef}
       type="button"
       aria-label={dir === 'prev' ? 'Previous testimonials' : 'Next testimonials'}
-      className="grid h-10 w-10 place-items-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-[#B31942] hover:bg-[#B31942] hover:text-white focus:outline-none focus:ring-4 focus:ring-[#B31942]/30 disabled:opacity-40"
+      className="grid h-10 w-10 place-items-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:border-[#B31942] hover:bg-[#B31942] hover:text-white focus:outline-none focus:ring-4 focus:ring-[#B31942]/30 disabled:opacity-40 dark:border-white/15 dark:bg-white/5 dark:text-white dark:backdrop-blur"
     >
       <Icon className="h-5 w-5" aria-hidden="true" />
     </button>
@@ -184,9 +186,19 @@ export default function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#f6f9fe] py-20 lg:py-28">
+    <section className="relative overflow-hidden bg-[#f6f9fe] py-20 dark:bg-[#0b1120] lg:py-28">
+      {/* dark mode only: faint grid + colored glows behind the glass cards */}
+      <div className="pointer-events-none absolute inset-0 hidden dark:block">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_70%_55%_at_50%_45%,black,transparent)]" />
+        <div className="absolute left-[8%] top-[42%] h-72 w-72 rounded-full bg-[#4da3ff]/20 blur-[110px]" />
+        <div className="absolute left-[40%] top-[55%] h-64 w-64 rounded-full bg-[#ff4d6d]/15 blur-[110px]" />
+        <div className="absolute right-[8%] top-[42%] h-72 w-72 rounded-full bg-[#4da3ff]/20 blur-[110px]" />
+        <div className="absolute bottom-[8%] left-[22%] h-64 w-64 rounded-full bg-[#ff4d6d]/15 blur-[110px]" />
+        <div className="absolute bottom-[8%] right-[22%] h-64 w-64 rounded-full bg-[#4da3ff]/15 blur-[110px]" />
+      </div>
+
       <div className="relative mx-auto max-w-3xl px-6 text-center">
-        <span className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600">
+        <span className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-sky-200 dark:backdrop-blur">
           Client Testimonials
         </span>
         {/* <h2 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl">
@@ -199,12 +211,12 @@ export default function TestimonialsSection() {
         <AnimatedText
           text="Trusted by 10k+ "
           highlight="businesses worldwide"
-          className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl"
+          className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 dark:text-white sm:text-5xl"
           delay={0.2}
           stagger={0.08}
           duration={0.7}
         />
-        <p className="mt-4 text-base text-neutral-600">
+        <p className="mt-4 text-base text-neutral-600 dark:text-slate-400">
           See what importers, exporters and trade professionals say about our US trade data.
         </p>
       </div>

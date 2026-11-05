@@ -110,7 +110,7 @@ export default function Navbar() {
                 dataOpen ? 'visible translate-y-0 opacity-100' : 'invisible translate-y-2 opacity-0'
               }`}
             >
-              <div className="rounded-2xl border border-slate-100 bg-white p-3 shadow-[0_15px_50px_rgba(15,23,42,0.12)]">
+              <div className="rounded-2xl border border-slate-100 bg-white dark:bg-slate-900 dark:border-white/10 p-3 shadow-[0_15px_50px_rgba(15,23,42,0.12)]">
                 <div className="px-3 pb-3 pt-2">
                   <p className="font-heading text-xs font-bold uppercase tracking-wider text-slate-400">
                     Explore Trade Data
@@ -125,18 +125,18 @@ export default function Navbar() {
                       key={item.name}
                       href={item.href}
                       onClick={() => setDataOpen(false)}
-                      className="group flex items-center gap-4 rounded-xl p-3 transition-all hover:bg-[#fff0f086]"
+                      className="group flex items-center gap-4 rounded-xl p-3 transition-all hover:bg-[#fff0f086] dark:hover:bg-white/10"
                     >
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#feeaea] text-[#B31942] transition-colors group-hover:bg-[#fcd8d8]">
                         <Icon size={23} strokeWidth={1.8} />
                       </div>
 
                       <div className="flex-1">
-                        <p className="font-heading text-sm font-bold text-slate-800 transition-colors group-hover:text-[#B31942]">
+                        <p className="font-heading text-sm font-bold text-slate-800 dark:text-white transition-colors group-hover:text-[#B31942]">
                           {item.name}
                         </p>
 
-                        <p className="mt-1 font-body text-xs leading-relaxed text-slate-500">
+                        <p className="mt-1 font-body text-xs leading-relaxed text-slate-500 dark:text-white/70">
                           {item.description}
                         </p>
                       </div>
@@ -149,8 +149,8 @@ export default function Navbar() {
                   );
                 })}
 
-                <div className="mt-2 border-t border-slate-100 px-3 py-3">
-                  <p className="font-body text-xs text-slate-500">
+                <div className="mt-2 border-t border-slate-100 dark:border-white/10 px-3 py-3">
+                  <p className="font-body text-xs text-slate-500 dark:text-white/70">
                     Access US trade intelligence in one place.
                   </p>
                 </div>
@@ -190,14 +190,18 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="rounded-lg p-2 text-slate-700 transition hover:bg-slate-100 lg:hidden"
-          aria-label="Toggle navigation"
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <X size={25} /> : <Menu size={25} />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="rounded-lg p-2 text-slate-700 transition hover:bg-slate-100 lg:hidden"
+            aria-label="Toggle navigation"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X size={25} /> : <Menu size={25} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Navigation */}

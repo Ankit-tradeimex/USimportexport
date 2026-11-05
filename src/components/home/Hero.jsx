@@ -19,8 +19,14 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-white dark:bg-slate-950">
       {/* dark mode only: faint grid + colored glows (hidden in light mode) */}
-      <div className="pointer-events-none absolute inset-0 hidden dark:block">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_80%_65%_at_60%_30%,black,transparent)]" />
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute inset-0
+  bg-[linear-gradient(rgba(10,49,97,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(10,49,97,0.035)_1px,transparent_1px)]
+  dark:bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)]
+  [background-size:56px_56px]
+  [mask-image:radial-gradient(ellipse_80%_65%_at_60%_30%,black,transparent)]"
+        />
         <div className="absolute -left-48 top-24 h-[520px] w-[520px] rounded-full bg-[#ff4d6d]/10 blur-[130px]" />
         <div className="absolute -right-32 -top-20 h-[640px] w-[640px] rounded-full bg-[#4da3ff]/20 blur-[140px]" />
       </div>
@@ -28,8 +34,8 @@ export default function Hero() {
       <div className="relative mx-auto max-w-7xl px-2 pb-10 pt-10 lg:px-4">
         <div className="grid items-center lg:grid-cols-2">
           {/* ---------- left: copy ---------- */}
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-sky-200 dark:backdrop-blur">
+          <div className="flex flex-col items-center lg:items-start justify-center ">
+            <span className="text-center lg:text-start inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-sky-200 dark:backdrop-blur">
               {/* pulsing dot: dark mode only */}
               <span className="relative hidden h-1.5 w-1.5 dark:flex">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75" />
@@ -43,11 +49,11 @@ export default function Hero() {
               // whileInView={{ opacity: 1, y: 0 }}
               // viewport={{ once: true, amount: 0.5 }}
               // transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-              className="mt-6 text-5xl font-semibold leading-[1.05] tracking-tight text-neutral-950 dark:text-white sm:text-6xl lg:text-7xl"
+              className="text-center lg:text-start mt-6 text-4xl font-semibold leading-[1.05] tracking-tight text-neutral-950 dark:text-white sm:text-6xl lg:text-7xl"
             >
               The Best U.S. <br />
-              Import-Export{' '}
-              <span className="inline-grid align-baseline">
+              Import-Export <br />
+              <span className="inline-grid align-baseline text-center lg:text-start">
                 {/* invisible longest phrase keeps the heading from jumping */}
                 <span
                   className="invisible col-start-1 row-start-1 whitespace-nowrap"
@@ -79,7 +85,7 @@ export default function Hero() {
               // whileInView={{ opacity: 1, y: 0 }}
               // viewport={{ once: true, amount: 0.5 }}
               // transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
-              className="mt-6 max-w-md text-sm leading-relaxed text-neutral-600 dark:text-slate-400"
+              className="text-center lg:text-start mt-6 max-w-md text-sm leading-relaxed text-neutral-600 dark:text-slate-400"
             >
               As an exclusive product of TradeImeX, USImportdata is a trusted source for US
               import-export trade data that provides you with complete insights into the US trade
@@ -91,7 +97,7 @@ export default function Hero() {
               // whileInView={{ opacity: 1, y: 0 }}
               // viewport={{ once: true, amount: 0.5 }}
               // transition={{ duration: 0.6, delay: 1, ease: 'easeOut' }}
-              className="mt-8 flex flex-wrap items-center gap-3"
+              className="mt-8 flex flex-wrap items-center gap-3 justify-center lg:justify-start"
             >
               <Link
                 href="/contact-us"

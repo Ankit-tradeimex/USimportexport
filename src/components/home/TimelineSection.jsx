@@ -78,7 +78,7 @@ function Node({ index, active, icon }) {
           ? ' gradient text-white shadow-[0_8px_24px_rgba(93,186,246,0.45)]'
           : done
             ? ' bg-[#B31942] text-white'
-            : 'border-neutral-200 bg-white text-neutral-400'
+            : 'border-neutral-200 bg-white text-neutral-400 dark:border-white/15 dark:bg-slate-900 dark:text-slate-500'
       }`}
     >
       {current && (
@@ -121,8 +121,11 @@ export default function TimelineSection() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <section className="relative overflow-hidden bg-[#f6f9fe] px-6 py-20 lg:px-10 lg:py-28">
-        <div className="pointer-events-none absolute -left-32 top-1/3 h-96 w-96 rounded-full bg-[#5DBAF6]/15 blur-3xl" />
+      <section className="relative overflow-hidden bg-[#f6f9fe] px-6 py-20 dark:bg-[#0b1120] lg:px-10 lg:py-28">
+        <div className="pointer-events-none absolute -left-32 top-1/3 h-96 w-96 rounded-full bg-[#5DBAF6]/15 blur-3xl dark:bg-[#4da3ff]/20" />
+        {/* dark mode only: second glow + faint grid */}
+        <div className="pointer-events-none absolute -right-40 bottom-0 hidden h-96 w-96 rounded-full bg-[#ff4d6d]/10 blur-[120px] dark:block" />
+        <div className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_70%_50%_at_30%_30%,black,transparent)] dark:block" />
 
         <div className="relative mx-auto max-w-7xl">
           {/* heading */}
@@ -133,7 +136,7 @@ export default function TimelineSection() {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="max-w-2xl"
           >
-            <span className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600">
+            <span className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-sky-200 dark:backdrop-blur">
               Key Features
             </span>
             {/* <h2 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl">
@@ -145,7 +148,7 @@ export default function TimelineSection() {
             <AnimatedText
               text="USImportData Live Search: Key Features of the"
               highlight="Live US Import-Export Database"
-              className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl"
+              className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 dark:text-white sm:text-5xl"
               delay={0.2}
               stagger={0.08}
               duration={0.7}
@@ -156,11 +159,11 @@ export default function TimelineSection() {
             {/* ---------- timeline ---------- */}
             <div ref={listRef} className="relative">
               {/* track */}
-              <div className="absolute bottom-6 left-[25px] top-6 w-0.5 rounded-full bg-neutral-200" />
+              <div className="absolute bottom-6 left-[25px] top-6 w-0.5 rounded-full bg-neutral-200 dark:bg-white/10" />
               {/* progress */}
               <motion.div
                 style={{ scaleY, transformOrigin: 'top' }}
-                className="absolute bottom-6 left-[25px] top-6 w-0.5 rounded-full bg-linear-to-b from-[#B31942] to-[#0A3161]"
+                className="absolute bottom-6 left-[25px] top-6 w-0.5 rounded-full bg-linear-to-b from-[#B31942] to-[#0A3161] dark:to-[#4da3ff]"
               />
 
               <ol className="relative">
@@ -182,19 +185,23 @@ export default function TimelineSection() {
                     >
                       <span
                         className={`text-xs font-semibold tracking-widest transition-colors duration-300 ${
-                          i === active ? 'text-[#2f7fd6]' : 'text-neutral-400'
+                          i === active
+                            ? 'text-[#B31942] dark:text-emerald-400'
+                            : 'text-neutral-400 dark:text-slate-500'
                         }`}
                       >
                         STEP 0{i + 1}
                       </span>
                       <h3
                         className={`mt-1.5 text-xl font-semibold leading-snug tracking-tight transition-colors duration-300 ${
-                          i === active ? 'text-neutral-950' : 'text-neutral-700'
+                          i === active
+                            ? 'text-neutral-950 dark:text-white'
+                            : 'text-neutral-700 dark:text-slate-400'
                         }`}
                       >
                         {s.title}
                       </h3>
-                      <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-neutral-600">
+                      <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-neutral-600 dark:text-slate-400">
                         {s.text}
                       </p>
                     </motion.div>
@@ -211,7 +218,7 @@ export default function TimelineSection() {
                 width={500}
                 height={600}
                 priority
-                className="rounded-xl"
+                className="rounded-xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.5)] dark:ring-1 dark:ring-white/10 dark:brightness-90"
               />
             </div>
           </div>

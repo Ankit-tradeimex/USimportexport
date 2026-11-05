@@ -47,24 +47,26 @@ function CountryCard({ c }) {
         href={`/country/${c.slug}`}
         whileHover={{ y: -8 }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        className="group relative flex h-full flex-col items-center overflow-hidden rounded-3xl border border-neutral-200 bg-white px-4 pb-6 pt-7 text-center transition-[border-color,box-shadow] duration-300 hover:border-[#B31942]/60 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#B31942]/50"
+        className="group relative flex h-full flex-col items-center overflow-hidden rounded-3xl border border-neutral-200 bg-white px-4 pb-6 pt-7 text-center transition-[border-color,box-shadow] duration-300 hover:border-[#B31942]/60 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#B31942]/50 dark:border-white/10 dark:bg-transparent dark:bg-linear-to-br dark:from-white/[0.12] dark:to-white/[0.03] dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:backdrop-blur-xl dark:hover:border-white/25 dark:hover:shadow-[0_12px_48px_rgba(77,163,255,0.25)]"
       >
         {/* soft glow behind the flag */}
 
         {/* flag */}
         <div className="relative">
-          <div className="absolute -inset-1.5 rounded-full bg-linear-to-r from-[#B31942] to-[#0A3161] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          <div className="relative h-20 w-20 overflow-hidden rounded-full border-4 border-white bg-neutral-100 shadow-[0_8px_24px_rgba(20,20,60,0.18)] transition-transform duration-500 group-hover:scale-105 group-hover:rotate-[-4deg]">
+          <div className="absolute -inset-1.5 rounded-full bg-linear-to-r from-[#B31942] to-[#0A3161] opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:to-[#4da3ff]" />
+          <div className="relative h-20 w-20 overflow-hidden rounded-full border-4 border-white bg-neutral-100 shadow-[0_8px_24px_rgba(20,20,60,0.18)] dark:border-white/20 dark:bg-white/10 dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-105 group-hover:rotate-[-4deg]">
             <Flag title={c.name} preserveAspectRatio="xMidYMid slice" className="h-full w-full" />
           </div>
         </div>
 
-        <h3 className="relative mt-5 text-[15px] font-semibold leading-snug tracking-tight text-neutral-950">
+        <h3 className="relative mt-5 text-[15px] font-semibold leading-snug tracking-tight text-neutral-950 dark:text-white">
           {c.name}
         </h3>
-        <p className="relative mt-1 text-xs text-neutral-500">Import &amp; Export data</p>
+        <p className="relative mt-1 text-xs text-neutral-500 dark:text-slate-400">
+          Import &amp; Export data
+        </p>
 
-        <span className="relative mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#B31942] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:translate-y-1">
+        <span className="relative mt-4 inline-flex items-center gap-1 text-xs font-semibold text-[#B31942] dark:text-[#ff7a90] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:translate-y-1">
           Explore
           <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
         </span>
@@ -76,9 +78,19 @@ function CountryCard({ c }) {
 export default function CountriesSection() {
   return (
     <MotionConfig reducedMotion="user">
-      <section className="relative overflow-hidden bg-white px-6 py-20 lg:px-10 lg:py-28">
+      <section className="relative overflow-hidden bg-white px-6 py-20 dark:bg-slate-950 lg:px-10 lg:py-28">
         {/* <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#cfdbea_1px,transparent_1px)] [background-size:26px_26px] [mask-image:radial-gradient(ellipse_75%_55%_at_50%_45%,black,transparent)]" />
         <div className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-[#5DBAF6]/20 blur-3xl" /> */}
+
+        {/* dark mode only: faint grid + colored glows behind the glass cards */}
+        <div className="pointer-events-none absolute inset-0 hidden dark:block">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_70%_55%_at_50%_50%,black,transparent)]" />
+          <div className="absolute left-[6%] top-[38%] h-72 w-72 rounded-full bg-[#4da3ff]/20 blur-[110px]" />
+          <div className="absolute left-[38%] top-[48%] h-64 w-64 rounded-full bg-[#ff4d6d]/15 blur-[110px]" />
+          <div className="absolute right-[6%] top-[40%] h-72 w-72 rounded-full bg-[#4da3ff]/20 blur-[110px]" />
+          <div className="absolute bottom-[12%] left-[24%] h-60 w-60 rounded-full bg-[#ff4d6d]/15 blur-[110px]" />
+          <div className="absolute left-1/2 top-0 h-56 w-[55%] -translate-x-1/2 rounded-full bg-[#4da3ff]/15 blur-[110px]" />
+        </div>
 
         <div className="relative mx-auto max-w-7xl">
           {/* header */}
@@ -89,8 +101,8 @@ export default function CountriesSection() {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="mx-auto max-w-3xl text-center"
           >
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600">
-              <Globe2 className="h-3 w-3 text-[#B31942]" aria-hidden="true" />
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-sky-200 dark:backdrop-blur">
+              <Globe2 className="h-3 w-3 text-[#B31942] dark:text-[#ff7a90]" aria-hidden="true" />
               Global Coverage
             </span>
             {/* <h2 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl">
@@ -102,12 +114,12 @@ export default function CountriesSection() {
             <AnimatedText
               text="Browse more"
               highlight="countries"
-              className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl"
+              className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 dark:text-white sm:text-5xl"
               delay={0.2}
               stagger={0.08}
               duration={0.7}
             />
-            <p className="mt-4 text-base leading-relaxed text-neutral-600">
+            <p className="mt-4 text-base leading-relaxed text-neutral-600 dark:text-slate-400">
               Explore US trade data by partner country and see who is buying from and selling to the
               United States.
             </p>
@@ -136,7 +148,7 @@ export default function CountriesSection() {
           >
             <a
               href="/countries"
-              className="group inline-flex items-center gap-2 rounded-xl bg-[#1a1a3a] px-7 py-3.5 text-sm font-medium text-white shadow-[0_10px_30px_rgba(26,26,58,0.25)] transition hover:bg-[#2a2a55] focus:outline-none focus:ring-4 focus:ring-[#5DBAF6]/40"
+              className="group inline-flex items-center gap-2 rounded-xl bg-[#1a1a3a] px-7 py-3.5 text-sm font-medium text-white shadow-[0_10px_30px_rgba(26,26,58,0.25)] transition hover:bg-[#2a2a55] focus:outline-none focus:ring-4 focus:ring-[#5DBAF6]/40 dark:border dark:border-white/20 dark:bg-white/10 dark:shadow-none dark:backdrop-blur dark:hover:bg-white/20"
             >
               View all countries
               <ArrowRight

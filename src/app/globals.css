@@ -2,6 +2,17 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Smooth light/dark theme transitions */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
+  }
+}
+
 :root {
   --font-heading: var(--font-plus-jakarta);
   --font-body: var(--font-inter);

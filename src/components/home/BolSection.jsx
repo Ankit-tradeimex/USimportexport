@@ -56,28 +56,40 @@ function Card({ card, index }) {
       whileHover={{ y: -8 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
       onMouseMove={onMove}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white p-7 shadow-[0_2px_12px_rgba(20,20,60,0.05)] transition-[border-color,box-shadow] duration-300 hover:border-[#B31942]/60 hover:shadow-[0_4px_6px_rgba(93,186,246,0.25)]"
+      className="group relative flex flex-col overflow-hidden rounded-3xl border border-neutral-200 bg-white p-7 shadow-[0_2px_12px_rgba(20,20,60,0.05)] transition-[border-color,box-shadow] duration-300 hover:border-[#B31942]/60 hover:shadow-[0_4px_6px_rgba(93,186,246,0.25)] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:backdrop-blur-xl dark:hover:border-white/25 dark:hover:bg-white/10 dark:hover:shadow-[0_12px_48px_rgba(77,163,255,0.25)]"
     >
+      {/* dark mode only: glass sheen + cursor spotlight */}
+      <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-br from-white/15 via-white/0 to-transparent dark:block" />
+      <div
+        className="pointer-events-none absolute inset-0 hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:block"
+        style={{
+          background:
+            'radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(77,163,255,0.2), transparent 70%)',
+        }}
+      />
+
       <motion.span
         whileHover={{ rotate: [0, -8, 8, 0] }}
         transition={{ duration: 0.5 }}
-        className="relative grid h-14 w-14 place-items-center rounded-2xl bg-linear-to-r from-[#B31942] to-[#0A3161] text-white"
+        className="relative grid h-14 w-14 place-items-center rounded-2xl bg-linear-to-r from-[#B31942] to-[#0A3161] text-white dark:to-[#4da3ff] dark:shadow-[0_8px_24px_rgba(77,163,255,0.35)]"
       >
         <Icon className="h-7 w-7" strokeWidth={1.8} aria-hidden="true" />
       </motion.span>
 
-      <span className="relative mt-6 inline-flex w-fit rounded-full border border-[#B31942]/30 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#B31942]">
+      <span className="relative mt-6 inline-flex w-fit rounded-full border border-[#B31942]/30 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#B31942] dark:border-white/15 dark:bg-white/5 dark:text-[#ff7a90]">
         {card.tag}
       </span>
 
-      <h3 className="relative mt-4 text-xl font-semibold leading-snug tracking-tight text-neutral-950">
+      <h3 className="relative mt-4 text-xl font-semibold leading-snug tracking-tight text-neutral-950 dark:text-white">
         {card.title}
       </h3>
-      <p className="relative mt-3 flex-1 text-sm leading-relaxed text-neutral-600">{card.text}</p>
+      <p className="relative mt-3 flex-1 text-sm leading-relaxed text-neutral-600 dark:text-slate-400">
+        {card.text}
+      </p>
 
       {/* animated underline that grows on hover */}
-      <div className="relative mt-6 h-0.5 w-full overflow-hidden rounded-full bg-neutral-100">
-        <div className="h-full w-0 rounded-full bg-linear-to-r from-[#B31942] to-[#0A3161] transition-all duration-500 group-hover:w-full" />
+      <div className="relative mt-6 h-0.5 w-full overflow-hidden rounded-full bg-neutral-100 dark:bg-white/10">
+        <div className="h-full w-0 rounded-full bg-linear-to-r from-[#B31942] to-[#0A3161] transition-all duration-500 group-hover:w-full dark:to-[#4da3ff]" />
       </div>
     </motion.article>
   );
@@ -89,10 +101,19 @@ function Card({ card, index }) {
 export default function BolSection() {
   return (
     <MotionConfig reducedMotion="user">
-      <section className="relative overflow-hidden bg-white px-6 py-20 lg:px-10 lg:py-28">
+      <section className="relative overflow-hidden bg-white px-6 py-20 dark:bg-slate-950 lg:px-10 lg:py-28">
         {/* background decoration */}
         {/* <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(26,26,58,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(26,26,58,0.05)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]" />
         <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[70%] -translate-x-1/2 rounded-full bg-[#5DBAF6]/20 blur-3xl" /> */}
+
+        {/* dark mode only: faint grid + colored glows behind the glass cards */}
+        <div className="pointer-events-none absolute inset-0 hidden dark:block">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]" />
+          <div className="absolute left-[12%] top-[48%] h-72 w-72 rounded-full bg-[#4da3ff]/25 blur-[100px]" />
+          <div className="absolute left-[42%] top-[58%] h-64 w-64 rounded-full bg-[#ff4d6d]/20 blur-[100px]" />
+          <div className="absolute right-[10%] top-[46%] h-72 w-72 rounded-full bg-[#4da3ff]/20 blur-[110px]" />
+          <div className="absolute left-1/2 top-0 h-64 w-[60%] -translate-x-1/2 rounded-full bg-[#4da3ff]/15 blur-[110px]" />
+        </div>
 
         <div className="relative mx-auto max-w-7xl">
           {/* heading */}
@@ -103,7 +124,7 @@ export default function BolSection() {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="mx-auto max-w-3xl text-center"
           >
-            <span className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600">
+            <span className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600 dark:border-white/10 dark:bg-white/5 dark:text-sky-200 dark:backdrop-blur">
               Bill of Lading Data
             </span>
             {/* <h2 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl">
@@ -115,12 +136,12 @@ export default function BolSection() {
             <AnimatedText
               text="Explore great possibilities in US trade with"
               highlight="US Bill of Lading Data"
-              className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl"
+              className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 dark:text-white sm:text-5xl"
               delay={0.2}
               stagger={0.08}
               duration={0.7}
             />
-            <p className="mt-5 text-base leading-relaxed text-neutral-600">
+            <p className="mt-5 text-base leading-relaxed text-neutral-600 dark:text-slate-400">
               Discover how our platform helps businesses acquire US shipment data, with exclusive US
               import-export data reports under our B/L data.
             </p>
