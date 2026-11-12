@@ -135,7 +135,7 @@ export default function SearchSection({ onSearch }) {
   };
 
   return (
-    <section className="bg-[#f6f9fe] px-6 py-16 transition-colors duration-300 dark:bg-[#0b1120] lg:px-10 lg:py-20">
+    <section className="transition-colors duration-300 dark:bg-[#0b1120]">
       <div className="mx-auto max-w-5xl">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">

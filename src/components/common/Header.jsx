@@ -43,13 +43,13 @@ export default function Navbar() {
     {
       name: 'US Import Data',
       description: 'Explore incoming shipments and US import records.',
-      href: '/import-data',
+      href: '/us-import-data',
       icon: Ship,
     },
     {
       name: 'US Export Data',
       description: 'Discover outgoing shipments and export records.',
-      href: '/export-data',
+      href: '/us-export-data',
       icon: Globe2,
     },
   ];
