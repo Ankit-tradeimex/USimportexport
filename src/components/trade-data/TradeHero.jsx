@@ -66,11 +66,15 @@ export default function TradeHero({ data }) {
   return (
     <section className="relative overflow-hidden bg-white dark:bg-slate-950">
       {/* dark mode only: grid + glows */}
-      <div className="pointer-events-none absolute inset-0 hidden dark:block">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_80%_65%_at_60%_30%,black,transparent)]" />
+      <div className="pointer-events-none absolute inset-0">
         <div
-          className={`absolute -left-48 top-24 h-[520px] w-[520px] rounded-full blur-[130px] ${data.type === 'import' ? 'bg-[#ff4d6d]/10' : 'bg-[#4da3ff]/10'}`}
+          className="absolute inset-0
+  bg-[linear-gradient(rgba(10,49,97,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(10,49,97,0.035)_1px,transparent_1px)]
+  dark:bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)]
+  [background-size:56px_56px]
+  [mask-image:radial-gradient(ellipse_80%_65%_at_60%_30%,black,transparent)]"
         />
+        <div className="absolute -left-48 top-24 h-[520px] w-[520px] rounded-full bg-[#ff4d6d]/10 blur-[130px]" />
         <div className="absolute -right-32 -top-20 h-[640px] w-[640px] rounded-full bg-[#4da3ff]/20 blur-[140px]" />
       </div>
 

@@ -386,6 +386,57 @@ export const TRADE_DATA = {
         },
       ],
     },
+    benefits: {
+      title: 'Benefits of the US Import Data',
+      items: [
+        {
+          icon: 'revenue',
+          text: 'Businesses looking to increase revenue can gain from the US import data.',
+        },
+        {
+          icon: 'expand',
+          text: 'The US import data is crucial for businesses looking to expand into other markets.',
+        },
+        {
+          icon: 'marketing',
+          text: 'Utilize US import statistics when creating your marketing strategy in the US.',
+        },
+        {
+          icon: 'brand',
+          text: 'Establish a strong brand identification in the import market in the US.',
+        },
+        {
+          icon: 'goals',
+          text: 'Establish long-term goals for your US business and boost return on investment.',
+        },
+      ],
+    },
+    faqs: {
+      subtitle:
+        'Common questions about US import data. Can’t find your answer? Our team is happy to help.',
+      items: [
+        {
+          q: 'What is the total value of US imports as per the US import data?',
+          a: 'US import bill of lading data is the trade records and statistics for the goods that the US imports from other countries under the Bill of Lading Documents. According to the US shipment data, the US imported goods worth $3.50 trillion in 2025, with a growth of 6% from the previous year.',
+        },
+        {
+          q: 'What is the biggest US import commodity, based on the US import data by HS code?',
+          a: 'Based on US trade statistics and US import data by HS code, Nuclear reactors and machinery (HS code 84) is the biggest US import commodity with imports of $665.11 billion in 2025.',
+        },
+        {
+          q: 'Who is the biggest import partner of the US?',
+          a: 'Mexico is the biggest import partner of the US, with imports worth $538.97 billion in 2025, according to the US trade activities and US- Mexico trade data. The top 10 US imports from Mexico in 2025, based on the US trade records and US-Mexico shipment import data, are: Vehicles: $130.03 billion Electrical machinery and equipment: $85.55 billion Nuclear reactors and machinery: $81.61 billion Mineral fuels and oils: $25.01 billion  Optical, medical, and surgical instruments: $22.33 billion Furniture, bedding, and mattresses: $13.35 billion Beverages, spirits, and vinegar: $11.75 billion Edible fruit and nuts: $10.86 billion Edible vegetables: $9.52 billion Plastics and articles thereof: $7.90 billion.',
+        },
+        {
+          q: 'How has the US-China trade data fluctuated in recent years in terms of imports?',
+          a: 'According to our multiple records on US-China Trade data with analysis of US import shipment data from China and all US import records from China, the US imported goods worth $327.49 billion in 2025, with a decline of 29% in imports from the previous year, which shows that the US imports from China accounted for a 14.1% of import share. Henceforth, there has been a major fluctuation in US imports from China, based on the US-China trade data and US trade records. The top 10 US imports from China in 2025 include: Electrical machinery and equipment: $12.67 billion Nuclear reactors and machinery: $85.88 billion Toys, games, and sports requisites: $33.38 billion Furniture, bedding, and mattresses: $20.28 billion Plastics and articles thereof: $16.41 billion  Vehicles: $11.79 billion Optical, medical, or surgical instruments: $11.71 billion Articles of iron or steel: $10.03 billion Footwear: $9.99 billion Articles of apparel and clothing, knitted or crocheted: $8.59 billion.',
+        },
+        {
+          q: 'How can I find buyers and importers in the USA according to my product?',
+          a: 'USImportData helps you to connect with profitable US importers and buyers with updated import reports on the US importers database, according to your product. Our search-filtered database on US import records, like US import data by HS Code, US import data by Country, US import data by product, and US import data by company reports are designed according to your product and business requirements.',
+        },
+      ],
+    },
     legend: 'Imports into the U.S.',
     meta: {
       title: 'US Import Data | US Import Bill of Lading Records – USImportdata',
@@ -782,6 +833,46 @@ export const TRADE_DATA = {
         },
       ],
     },
+    benefits: {
+      title: 'Benefits of the USA Export Data',
+      items: [
+        {
+          icon: 'performance',
+          text: 'Assess the current status and export performance of the US economy.',
+        },
+        { icon: 'leads', text: 'Generate authentic leads from the US export sector.' },
+        { icon: 'demand', text: 'Learn what the most recent product demand in the US is.' },
+        { icon: 'competitors', text: 'Monitor your competitors in the US and outperform them.' },
+        { icon: 'strategy', text: 'Develop your marketing strategy using US export database.' },
+      ],
+    },
+    faqs: {
+      subtitle:
+        'Common questions about US export data. Can’t find your answer? Our team is happy to help.',
+      items: [
+        {
+          q: '1. What is the US bill of lading data for exports?',
+          a: 'The US Bill of Lading data reports cover detailed US export data with details about the goods, the shipper, the consignee, and the destination country, which helps you to access the US export data by HS Code, product, company, port, and US shipment database to help you find exporters and suppliers in USA with the US Exporters list and reports.',
+        },
+        {
+          q: '2. Who is the biggest export partner of the US?',
+          a: 'Canada is the biggest export partner of the US with exports worth $348.50 billion in 2025 according to the US trade activities and US-Canada trade data. The top 10 US exports to Canada in 2025 according to the US export data are: Vehicles: $57.72 billion Nuclear reactors and machinery: $52.76 billion Electrical machinery and equipment: $29.41 billion Mineral fuels and oils: $28.67 billion Plastics and articles thereof: $15.41 billion Optical, medical, or surgical instruments: $10.60 billion Aircraft, spacecraft, and parts thereof: $8.72 billion Precious stones and metals, pearls: $8.54 billion Articles of iron or steel: $7.48 billion Miscellaneous chemical products: $6.66 billion.',
+        },
+        {
+          q: '3. How has the US-China trade data fluctuated in previous years?',
+          a: 'The US-China trade data, or US export shipment data to China show a major fluctuation in US-China trade in recent years, as the US exports to China declined by 4% in 2025. The US exports to China accounted for $143.54 billion in 2025 based on the US trade data. Multiple accurate reports on US shipment data, US Bill of lading data, and the analysis of USA exports data by country contain detailed US-China trade data, showcasing these are the top 10 US exports to China. Mineral fuels and oils: $19.73 billion Oil seeds and oleaginous fruits: $15.85 billion Nuclear reactors and machinery: $13.72 billion Electrical machinery and equipment: $11.64 billion Optical, medical, or surgical instruments: $11.30 billion Pharmaceutical products: $9.89 billion Vehicles: $8.13 billion Plastics and articles thereof: $7.44 billion Aircraft, spacecraft, and parts thereof: $6.81 billion Organic chemicals: $4.20 billion.',
+        },
+        {
+          q: '4. What does the US trade balance indicate?',
+          a: 'According to the US trade balance data for 2025, the total value of the US trade balance or US trade deficit accounted for -$1.33 trillion, showing a 6% increase in US exports in 2025 as compared to the previous year.',
+        },
+        {
+          q: '5. How can I find suppliers and exporters in the USA according to my product?',
+          a: 'USImportData, helps you to connect with profitable US exporters and suppliers with reliable frequently updated data reports on the US exporters database and a list of top US Exporters according to your product and HS code. It provides you with a filtered database and multiple us export record searches, like USA export data by HS Code, US Exports by Country, USA Export records by product, or our wide US Exporters list reports and suppliers data designed according to your product and business.',
+        },
+      ],
+    },
+
     legend: 'Exports from the U.S.',
     meta: {
       title: 'US Export Data | US Export Shipment Records – USImportdata',

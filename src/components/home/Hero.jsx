@@ -44,17 +44,10 @@ export default function Hero() {
               Explore the Latest U.S. Trade Trends with US-Importdata
             </span>
 
-            <motion.h1
-              // initial={{ opacity: 0, y: 24 }}
-              // whileInView={{ opacity: 1, y: 0 }}
-              // viewport={{ once: true, amount: 0.5 }}
-              // transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-              className="text-center lg:text-start mt-6 text-4xl font-semibold leading-[1.05] tracking-tight text-neutral-950 dark:text-white sm:text-6xl lg:text-7xl"
-            >
+            <motion.h1 className="text-center lg:text-start mt-6 text-4xl font-semibold leading-[1.05] tracking-tight text-neutral-950 dark:text-white sm:text-6xl lg:text-7xl">
               The Best U.S. <br />
               Import-Export <br />
               <span className="inline-grid align-baseline text-center lg:text-start">
-                {/* invisible longest phrase keeps the heading from jumping */}
                 <span
                   className="invisible col-start-1 row-start-1 whitespace-nowrap"
                   aria-hidden="true"
@@ -80,25 +73,13 @@ export default function Hero() {
               </span>
             </motion.h1>
 
-            <motion.p
-              // initial={{ opacity: 0, y: 24 }}
-              // whileInView={{ opacity: 1, y: 0 }}
-              // viewport={{ once: true, amount: 0.5 }}
-              // transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
-              className="text-center lg:text-start mt-6 max-w-md text-sm leading-relaxed text-neutral-600 dark:text-slate-400"
-            >
+            <motion.p className="text-center lg:text-start mt-6 max-w-md text-sm leading-relaxed text-neutral-600 dark:text-slate-400">
               As an exclusive product of TradeImeX, USImportdata is a trusted source for US
               import-export trade data that provides you with complete insights into the US trade
               activities with its frequently updated US Import-Export database.
             </motion.p>
 
-            <motion.div
-              // initial={{ opacity: 0, y: 24 }}
-              // whileInView={{ opacity: 1, y: 0 }}
-              // viewport={{ once: true, amount: 0.5 }}
-              // transition={{ duration: 0.6, delay: 1, ease: 'easeOut' }}
-              className="mt-8 flex flex-wrap items-center gap-3 justify-center lg:justify-start"
-            >
+            <motion.div className="mt-8 flex flex-wrap items-center gap-3 justify-center lg:justify-start">
               <Link
                 href="/contact-us"
                 className="inline-flex items-center gap-2 rounded-lg gradient px-5 py-3 text-sm font-medium text-white transition hover:bg-[#2a2a55] dark:shadow-[0_10px_30px_rgba(77,163,255,0.35)] dark:hover:brightness-110"

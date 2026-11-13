@@ -1,4 +1,4 @@
-import TradeDataPage from '@/components/trade-data/TradeDataPage';
+import TradeDataPage from '@/pages/TradeDataPage';
 import { TRADE_DATA } from '@/data/tradeData';
 
 export const metadata = {

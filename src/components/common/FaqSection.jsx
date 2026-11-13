@@ -2,32 +2,10 @@
 
 import { useId, useState } from 'react';
 import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
-import { HelpCircle, Mail, Plus } from 'lucide-react';
+import { HelpCircle, Plus } from 'lucide-react';
 import Image from 'next/image';
 import AnimatedText from '../utils/AnimatedText';
-
-const FAQS = [
-  {
-    q: 'What types of data does USImportdata provide?',
-    a: 'At USImportdata, we provide US import data & US export data. Our US import data includes detailed information about goods entering the country. Our US export data provides insights into goods being shipped out of the country. Our US import-export database typically covers product descriptions, HS codes, quantities, importer & exporter details, origin & destination countries, and port details.',
-  },
-  {
-    q: 'What is USImportdata, and how can it help my business?',
-    a: 'USImportdata is a US trade data provider & trade intelligence platform that provides shipment-level US import-export data, including Bill of Lading records, importer-exporter databases, HS code details, product descriptions, and market analysis to help businesses track competitors, find buyers/suppliers, and identify growth opportunities.',
-  },
-  {
-    q: 'What type of trade information is available on USImportdata?',
-    a: 'Yes. You can look up any importer or exporter by name to see their shipment history, main products, trading partners and ports. This is useful for tracking competitors and checking a prospective partner.',
-  },
-  {
-    q: 'Is the data from USImportdata updated regularly?',
-    a: 'According to the company, the platform provides real-time or frequent updates on the US trade data, shipment trends, and market analysis so businesses can access current trade databases for decision-making.',
-  },
-  {
-    q: 'Can I customize data reports based on my business needs?',
-    a: 'Yes, USImportdata offers personalized and customizable trade reports tailored to specific industries, products, countries, and business goals for more targeted market research.',
-  },
-];
+import { HOME_FAQS } from '../../data/faqData';
 
 function Item({ item, open, onToggle, index }) {
   const uid = useId();
@@ -98,15 +76,40 @@ function Item({ item, open, onToggle, index }) {
   );
 }
 
-export default function FaqSection() {
+export default function FaqSection({
+  faqs = HOME_FAQS,
+  title = 'Frequently Asked',
+  highlight = 'Questions',
+  subtitle = "Everything you need to know about US import-export data. Can't find your answer? Our team is happy to help.",
+  image = '/assets/images/faq.webp',
+  id = 'faq',
+  schema = false,
+}) {
   const [openIndex, setOpenIndex] = useState(0); // first one open by default
+  if (!faqs?.length) return null;
+
+  const jsonLd = schema
+    ? JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      }).replace(/</g, '\\u003c')
+    : null;
 
   return (
     <MotionConfig reducedMotion="user">
       <section
-        id="faq"
+        id={id}
         className="relative overflow-hidden bg-[#f6f9fe] px-6 py-20 dark:bg-slate-950 lg:px-10 lg:py-28"
       >
+        {jsonLd && (
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
+        )}
+
         {/* dark mode only: faint grid + colored glows behind the glass */}
         <div className="pointer-events-none absolute inset-0 hidden dark:block">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,black,transparent)]" />
@@ -121,49 +124,50 @@ export default function FaqSection() {
             <HelpCircle className="h-3 w-3 text-[#B31942] dark:text-[#ff7a90]" aria-hidden="true" />
             FAQ
           </span>
-          {/* <h2 className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 sm:text-5xl">
-                Frequently asked{" "}
-                <span className="bg-linear-to-r from-[#B31942] to-[#0A3161] bg-clip-text text-transparent">
-                  questions
-                </span>
-            </h2> */}
           <AnimatedText
-            text="Frequently Asked"
-            highlight="Questions"
+            text={title}
+            highlight={highlight}
             className="mt-5 text-4xl font-semibold leading-[1.1] tracking-tight text-neutral-950 dark:text-white sm:text-5xl"
             delay={0.2}
             stagger={0.08}
             duration={0.7}
           />
-          <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600 dark:text-slate-400">
-            Everything you need to know about US import-export data. Can't find your answer? Our
-            team is happy to help.
-          </p>
+          {subtitle && (
+            <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600 dark:text-slate-400">
+              {subtitle}
+            </p>
+          )}
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          {/* ---------- left: heading + help card ---------- */}
-          <div className="lg:sticky lg:top-24 lg:self-start">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className=""
-            >
-              <Image
-                src="/assets/images/faq.webp"
-                alt="FAQ"
-                width={500}
-                height={500}
-                className="dark:rounded-2xl"
-              />
-            </motion.div>
-          </div>
+        <div
+          className={`relative mx-auto grid gap-12 ${
+            image ? 'max-w-7xl lg:grid-cols-[0.8fr_1.2fr] lg:gap-20' : 'max-w-3xl'
+          }`}
+        >
+          {/* ---------- left: image (hidden when `image` is null) ---------- */}
+          {image && (
+            <div className="lg:sticky lg:top-24 lg:self-start">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className=""
+              >
+                <Image
+                  src={image}
+                  alt="FAQ"
+                  width={500}
+                  height={500}
+                  className="dark:rounded-2xl"
+                />
+              </motion.div>
+            </div>
+          )}
 
           {/* ---------- right: accordion ---------- */}
           <div className="space-y-3">
-            {FAQS.map((f, i) => (
+            {faqs.map((f, i) => (
               <Item
                 key={f.q}
                 item={f}
