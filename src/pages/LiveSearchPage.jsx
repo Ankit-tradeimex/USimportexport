@@ -10,7 +10,7 @@ const LiveSearchPage = () => {
   return (
     <main>
       <LiveDataHero />
-      <div className="py-10">
+      <div id="search" className="py-10">
         <SearchSection />
       </div>
       <AiSearchCta />

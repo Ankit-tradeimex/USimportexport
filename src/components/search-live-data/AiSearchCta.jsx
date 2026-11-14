@@ -92,12 +92,6 @@ export default function AiSearchCta() {
                     <HiArrowLongRight />
                   </motion.span>
                 </Link>
-                <Link
-                  href="/search-live-data"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-medium text-white backdrop-blur transition hover:border-white/50 hover:bg-white/10"
-                >
-                  Search manually
-                </Link>
               </motion.div>
             </div>
           </div>

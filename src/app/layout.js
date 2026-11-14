@@ -3,6 +3,7 @@ import './globals.css';
 import ThemeProvider from '@/components/providers/ThemeProvider';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
+import ScrollToTop from '@/components/utils/ScrollToTop';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -23,9 +24,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html data-scroll-behavior="smooth" lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${plusJakarta.variable}`}>
         <ThemeProvider>
+          <ScrollToTop />
           <Header />
           {children}
           <Footer />

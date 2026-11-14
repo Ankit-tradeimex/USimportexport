@@ -72,13 +72,6 @@ export default function SearchLiveDataCta() {
                     <HiArrowLongRight />
                   </motion.span>
                 </Link>
-                <Link
-                  href="/ai-search"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-medium text-white backdrop-blur transition hover:border-white/50 hover:bg-white/10"
-                >
-                  <Sparkles className="h-4 w-4" aria-hidden="true" />
-                  Try AI Search
-                </Link>
               </motion.div>
             </div>
           </div>

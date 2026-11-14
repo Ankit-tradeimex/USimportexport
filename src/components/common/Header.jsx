@@ -3,16 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import {
-  Menu,
-  X,
-  ChevronDown,
-  Ship,
-  Globe2,
-  Building2,
-  FileSearch,
-  ArrowUpRight,
-} from 'lucide-react';
+import { Menu, X, ChevronDown, Ship, Globe2, ArrowUpRight, Sparkles } from 'lucide-react';
 import ThemeToggle from '../utils/ThemeToggle';
 
 const navLinks = [
@@ -69,7 +60,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center gap-10 lg:flex">
+        <div className="hidden items-center gap-7 lg:flex">
           {navLinks.slice(0, 1).map((link) => (
             <Link
               key={link.name}
@@ -168,6 +159,21 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
+
+          {/* AI Live Search - Featured Navigation Link */}
+          <Link
+            href="/ai-search"
+            className="group relative inline-flex items-center gap-1 overflow-hidden rounded-full border border-[#B31942]/20 bg-gradient-to-r from-[#fff3f5] via-white to-[#eef6ff] px-2 py-2 font-heading text-sm font-bold text-[#0A3161] shadow-sm transition-all duration-300 hover:border-[#B31942]/40 hover:shadow-[0_8px_25px_rgba(179,25,66,0.15)] dark:border-white/15 dark:from-[#B31942]/20 dark:via-slate-900 dark:to-[#0A3161]/50 dark:text-white"
+          >
+            {/* Animated glow */}
+            <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/60 to-transparent transition-transform duration-700 group-hover:translate-x-full dark:via-white/10" />
+
+            <span className="relative grid h-5 w-5 place-items-center rounded-full bg-gradient-to-br from-[#B31942] to-[#0A3161] text-white shadow-md">
+              <Sparkles size={10} />
+            </span>
+
+            <span className="relative whitespace-nowrap text-[13px]">AI Live Search</span>
+          </Link>
         </div>
 
         {/* Desktop Actions */}
