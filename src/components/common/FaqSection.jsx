@@ -7,6 +7,75 @@ import Image from 'next/image';
 import AnimatedText from '../utils/AnimatedText';
 import { HOME_FAQS } from '../../data/faqData';
 
+/* ---- answer renderer: turns plain text into paragraphs, lists and links ---- */
+// emails and http(s) links become clickable
+const LINK_RE = /([\w.+-]+@[\w-]+(?:\.[\w-]+)+|https?:\/\/[^\s]+?(?=[.,;:!?)]*(?:\s|$)))/g;
+const NUM_RE = /^\s*\d+[.)]\s+/;
+const BULLET_RE = /^\s*[-•*]\s+/;
+
+function linkify(text) {
+  return text.split(LINK_RE).map((part, i) => {
+    if (i % 2 === 0) return part; // plain text
+    const href = part.includes('@') && !part.startsWith('http') ? `mailto:${part}` : part;
+    const external = href.startsWith('http');
+    return (
+      <a
+        key={i}
+        href={href}
+        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        className="font-medium text-[#B31942] underline decoration-[#B31942]/40 underline-offset-4 transition-colors hover:decoration-[#B31942] dark:text-[#ff8da0] dark:decoration-[#ff8da0]/40 dark:hover:decoration-[#ff8da0]"
+      >
+        {part}
+      </a>
+    );
+  });
+}
+
+function Answer({ text }) {
+  const blocks = String(text)
+    .trim()
+    .split(/\n{2,}/);
+  return (
+    <div className="space-y-3">
+      {blocks.map((block, i) => {
+        const lines = block
+          .split('\n')
+          .map((l) => l.trim())
+          .filter(Boolean);
+        if (lines.length && lines.every((l) => NUM_RE.test(l))) {
+          return (
+            <ol
+              key={i}
+              className="list-decimal space-y-1.5 pl-5 marker:font-semibold marker:text-[#B31942] dark:marker:text-[#ff8da0]"
+            >
+              {lines.map((l, j) => (
+                <li key={j} className="pl-1">
+                  {linkify(l.replace(NUM_RE, ''))}
+                </li>
+              ))}
+            </ol>
+          );
+        }
+        if (lines.length && lines.every((l) => BULLET_RE.test(l))) {
+          return (
+            <ul
+              key={i}
+              className="list-disc space-y-1.5 pl-5 marker:text-[#B31942] dark:marker:text-[#ff8da0]"
+            >
+              {lines.map((l, j) => (
+                <li key={j} className="pl-1">
+                  {linkify(l.replace(BULLET_RE, ''))}
+                </li>
+              ))}
+            </ul>
+          );
+        }
+        return <p key={i}>{linkify(lines.join(' '))}</p>;
+      })}
+    </div>
+  );
+}
+
 function Item({ item, open, onToggle, index }) {
   const uid = useId();
   const panelId = `${uid}-panel`;
@@ -66,9 +135,9 @@ function Item({ item, open, onToggle, index }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
-            <p className="px-5 pb-5 text-sm leading-relaxed text-neutral-600 dark:text-slate-400 sm:px-6 sm:pb-6 sm:text-[15px]">
-              {item.a}
-            </p>
+            <div className="px-5 pb-5 text-sm leading-relaxed text-neutral-600 dark:text-slate-400 sm:px-6 sm:pb-6 sm:text-[15px]">
+              <Answer text={item.a} />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -132,16 +201,14 @@ export default function FaqSection({
             stagger={0.08}
             duration={0.7}
           />
-          {subtitle && (
-            <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600 dark:text-slate-400">
-              {subtitle}
-            </p>
-          )}
+          <p className="mt-4 max-w-md text-base leading-relaxed text-neutral-600 dark:text-slate-400">
+            {subtitle}
+          </p>
         </div>
 
         <div
           className={`relative mx-auto grid gap-12 ${
-            image ? 'max-w-7xl lg:grid-cols-[0.8fr_1.2fr] lg:gap-20' : 'max-w-3xl'
+            image ? 'max-w-7xl lg:grid-cols-[0.8fr_1.2fr] lg:gap-20' : 'max-w-7xl'
           }`}
         >
           {/* ---------- left: image (hidden when `image` is null) ---------- */}
