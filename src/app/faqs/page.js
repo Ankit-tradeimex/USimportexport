@@ -1,12 +1,11 @@
 export const metadata = {
-  title: 'Best US Import & Export trade Data Provider | usimportdata.com',
+  title: 'FAQs on US Import, Export & Trade Data - USimportdata',
   description:
-    'As a product of TradeImeX usimportdata.com with 7+ years of experience, we offer comprehensive us trade data and personalized us import-export reports',
-  alternates: { canonical: '/about' },
+    'Explore our comprehensive FAQ section to learn about US import-export data, shipment details, & how our US trade data solutions support your business decisions.',
+  alternates: { canonical: '/faqs' },
 };
 
 import FaqPage from '@/pages/FaqPage';
-import React from 'react';
 
 const Page = () => {
   return <FaqPage />;
