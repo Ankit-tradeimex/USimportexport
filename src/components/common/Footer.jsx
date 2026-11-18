@@ -9,7 +9,7 @@ import { useState } from 'react';
 const BRAND = 'TradeImeX';
 
 const COMPANY_LINKS = [
-  { label: 'About Us', href: '/about-us' },
+  { label: 'About Us', href: '/about' },
   { label: 'Blogs', href: '/blogs' },
   { label: 'Clients', href: '/clients' },
   { label: 'Faqs', href: '/faqs' },
@@ -17,12 +17,16 @@ const COMPANY_LINKS = [
 ];
 
 const DATA_LINKS = [
-  { label: 'Import data', href: '/import-data' },
-  { label: 'Export Data', href: '/export-data' },
-  { label: 'Global Trade Data', href: '/global-trade-data' },
-  { label: 'Search Live Data', href: '/search-live-data' },
-  { label: 'Product Directory', href: '/product-directory' },
-  { label: 'HS Code Directory', href: '/hs-code-directory' },
+  { label: 'US Import data', href: '/us-import-data', target: '' },
+  { label: 'US Export Data', href: '/us-export-data', target: '' },
+  {
+    label: 'Global Trade Data',
+    href: 'https://www.tradeimex.in/global-trade-data',
+    target: '_blank',
+  },
+  { label: 'Search Live Data', href: '/search-live-data', target: '' },
+  { label: 'Product Directory', href: '/product-directory', target: '' },
+  { label: 'HS Code Directory', href: '/hs-code-directory', target: '' },
 ];
 
 const TOP_IMPORTS = [
@@ -150,6 +154,7 @@ function FooterLinks({ title, links }) {
           <li key={l.label}>
             <Link
               href={l.href}
+              target={l.target}
               className="group inline-flex items-center gap-1.5 text-sm text-neutral-400 transition hover:text-[#B31942]"
             >
               <span className="h-px w-0 bg-[#B31942] transition-all duration-300 group-hover:w-3" />

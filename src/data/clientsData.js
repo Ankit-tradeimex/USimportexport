@@ -1,0 +1,15 @@
+export const CLIENTS = [
+  { name: 'ExxonMobil Corporation', logo: null },
+  { name: 'Dow Chemical Company', logo: null },
+  { name: 'Deloitte', logo: null },
+  { name: 'Realme', logo: null },
+  { name: 'Nikon', logo: null },
+  { name: 'Samsung', logo: null },
+  { name: 'LG', logo: null },
+  { name: 'Hyundai', logo: null },
+  { name: 'Tata Group', logo: null },
+  { name: 'Counterpoint', logo: null },
+  { name: 'DHL', logo: null },
+  { name: 'EY', logo: null },
+  { name: 'KPMG', logo: null },
+];

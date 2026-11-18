@@ -77,7 +77,7 @@ function ResultRow({ post, index }) {
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-white/55">
           <span className="flex items-center gap-1.5 font-semibold text-[#0A3161] dark:text-[#7cc4ff]">
             <User className="h-3.5 w-3.5" aria-hidden="true" />
-            {post.author ?? 'USimportdata'}
+            {post.author?.name ?? 'USimportdata'}
           </span>
           {post.date && (
             <span className="flex items-center gap-1.5">

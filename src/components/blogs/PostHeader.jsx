@@ -14,7 +14,7 @@ const fmt = (d) =>
       })
     : '';
 export default function PostHeader({ post }) {
-  const author = post.author ?? 'USimportdata Team';
+  const author = post?.author?.name ?? 'USimportdata Team';
 
   return (
     <MotionConfig reducedMotion="user">
@@ -140,11 +140,10 @@ export default function PostHeader({ post }) {
               <Image
                 src={post.image}
                 alt={post.title}
-                width={1920}
-                height={731}
-                priority
-                sizes="(min-width: 1280px) 1152px, 100vw"
-                className="aspect-[1920/731] h-auto w-full object-cover"
+                width={post.width ?? 1600}
+                height={post.height ?? 900}
+                sizes="(min-width: 1280px) 800px, (min-width: 768px) 90vw, 100vw"
+                className="h-auto w-full rounded-2xl object-cover"
               />
             ) : (
               <div className="relative flex aspect-[1920/731] w-full items-center justify-center overflow-hidden bg-linear-to-r from-[#B31942] via-[#5c2150] to-[#0A3161]">

@@ -12,7 +12,10 @@ const PER_PAGE = 10;
 
 // Pre-build every tag archive.
 export function generateStaticParams() {
-  return Object.keys(TAG_NAMES).map((slug) => ({ slug }));
+  console.time('TAG_PARAMS');
+  const params = Object.keys(TAG_NAMES).map((slug) => ({ slug }));
+  console.timeEnd('TAG_PARAMS');
+  return params;
 }
 
 // SEO metadata for each tag archive.

@@ -1,10 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Check, Info, Link2, Quote, Tag } from 'lucide-react';
+import { Check, Link2, Tag } from 'lucide-react';
 import { FaFacebookF, FaLinkedinIn, FaWhatsapp, FaXTwitter } from 'react-icons/fa6';
 import { HiArrowLongRight } from 'react-icons/hi2';
+import BlogContentRenderer from './content_renderer/BlogContentRenderer';
 
 const slugify = (s = '') =>
   s
@@ -12,106 +12,6 @@ const slugify = (s = '') =>
     .trim()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
-
-/* ------------------------------------------------------------------ */
-/* Content renderer                                                    */
-/* ------------------------------------------------------------------ */
-function Blocks({ blocks }) {
-  return (
-    <div className="space-y-6 text-[17px] leading-[1.85] text-slate-700 dark:text-white/75">
-      {blocks.map((b, i) => {
-        switch (b.type) {
-          case 'h2':
-            return (
-              <h2
-                key={i}
-                id={slugify(b.text)}
-                className="scroll-mt-28 pt-4 text-2xl font-semibold leading-snug tracking-tight text-slate-900 sm:text-3xl dark:text-white"
-              >
-                {b.text}
-              </h2>
-            );
-          case 'h3':
-            return (
-              <h3 key={i} className="pt-2 text-xl font-semibold text-slate-900 dark:text-white">
-                {b.text}
-              </h3>
-            );
-          case 'ul':
-            return (
-              <ul
-                key={i}
-                className="list-disc space-y-2 pl-6 marker:text-[#B31942] dark:marker:text-[#ff8da0]"
-              >
-                {b.items.map((t, j) => (
-                  <li key={j} className="pl-1">
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            );
-          case 'ol':
-            return (
-              <ol
-                key={i}
-                className="list-decimal space-y-2 pl-6 marker:font-semibold marker:text-[#B31942] dark:marker:text-[#ff8da0]"
-              >
-                {b.items.map((t, j) => (
-                  <li key={j} className="pl-1">
-                    {t}
-                  </li>
-                ))}
-              </ol>
-            );
-          case 'quote':
-            return (
-              <blockquote
-                key={i}
-                className="relative rounded-3xl bg-linear-to-br from-[#0A3161] via-[#17104d] to-[#5c2150] p-7 text-xl font-medium leading-relaxed text-white shadow-xl"
-              >
-                <Quote className="mb-2 h-7 w-7 text-white/40" aria-hidden="true" />
-                {b.text}
-              </blockquote>
-            );
-          case 'callout':
-            return (
-              <div
-                key={i}
-                className="flex gap-4 rounded-2xl border border-[#0A3161]/20 bg-[#0A3161]/5 p-5 text-[15px] leading-relaxed text-slate-700 dark:border-[#4da3ff]/30 dark:bg-[#4da3ff]/10 dark:text-white/80"
-              >
-                <Info
-                  className="mt-0.5 h-5 w-5 shrink-0 text-[#0A3161] dark:text-[#7cc4ff]"
-                  aria-hidden="true"
-                />
-                <p>{b.text}</p>
-              </div>
-            );
-          case 'image':
-            return (
-              <figure key={i}>
-                <Image
-                  src={b.src}
-                  alt={b.alt ?? ''}
-                  width={1920}
-                  height={731}
-                  sizes="(min-width: 1280px) 800px, 100vw"
-                  className="h-auto w-full rounded-2xl"
-                />
-                {b.caption && (
-                  <figcaption className="mt-2 text-center text-sm text-slate-500 dark:text-white/55">
-                    {b.caption}
-                  </figcaption>
-                )}
-              </figure>
-            );
-          default:
-            return <p key={i}>{b.text}</p>;
-        }
-      })}
-    </div>
-  );
-}
-
 
 function Share({ title }) {
   const [url, setUrl] = useState('');
@@ -181,7 +81,7 @@ function Share({ title }) {
 export default function PostBody({ post, content, tags = [] }) {
   return (
     <article>
-      <Blocks blocks={content} />
+      <BlogContentRenderer content={content} />
 
       {/* tags + share */}
       <div className="mt-12 space-y-6 border-t border-slate-200 pt-8 dark:border-white/10">
@@ -193,8 +93,8 @@ export default function PostBody({ post, content, tags = [] }) {
             </span>
             {tags.map((t) => (
               <Link
-                key={t.slug}
-                href={`/blog/tag/${t.slug}`}
+                 key={t.slug}
+                href={`/blogs/tag/${t.slug}`}
                 className="rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-[#B31942]/40 hover:bg-white hover:text-[#B31942] dark:border-white/10 dark:bg-white/5 dark:text-white/80 dark:hover:border-[#ff8da0]/50 dark:hover:text-[#ff8da0]"
               >
                 #{t.name}

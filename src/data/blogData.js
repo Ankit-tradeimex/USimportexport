@@ -1,20 +1,4 @@
-/*
-  SAMPLE BLOG DATA
-  Placeholder articles so the blog pages can be built and tested. Replace POSTS with your real posts
-  (or fetch them from a CMS / database and keep the same shape and helper functions).
-
-  Post shape:
-    slug        unique, used in the URL  -> /blogs/<slug>
-    title
-    excerpt     short summary shown on cards
-    image       path to a 1920 x 731 image, e.g. '/assets/images/blog/my-post.webp' (null = gradient placeholder)
-    category    must match a name in CATEGORIES below
-    tags        array of tag slugs (see TAG_NAMES below)
-    date        'YYYY-MM-DD'
-    readTime    e.g. '5 min read'
-    views       used to pick "trending" posts
-    featured    true for the post you want highlighted (optional)
-*/
+import usBillOfLadingArticle from './usBillOfLadingArticle';
 
 export const CATEGORIES = [
   {
@@ -50,6 +34,9 @@ export const TAG_NAMES = {
   'bill-of-lading': 'Bill of lading',
   'us-customs': 'US customs',
   'market-research': 'Market research',
+  'shipment-data': 'Shipment Data',
+  importers: 'Importers',
+  'trade-intelligence': 'Trade Intelligence',
   suppliers: 'Suppliers',
   buyers: 'Buyers',
   competitors: 'Competitors',
@@ -69,6 +56,16 @@ export const POSTS = [
     readTime: '7 min read',
     views: 1840,
     featured: true,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'find-us-importers-for-your-product',
@@ -81,6 +78,16 @@ export const POSTS = [
     date: '2026-10-21',
     readTime: '6 min read',
     views: 2210,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'what-is-an-hs-code-and-how-to-find-yours',
@@ -93,6 +100,16 @@ export const POSTS = [
     date: '2026-10-14',
     readTime: '5 min read',
     views: 2965,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'track-competitors-with-us-export-data',
@@ -105,6 +122,16 @@ export const POSTS = [
     date: '2026-10-07',
     readTime: '6 min read',
     views: 1320,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'us-import-data-for-supplier-research',
@@ -117,6 +144,16 @@ export const POSTS = [
     date: '2026-09-30',
     readTime: '5 min read',
     views: 980,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'understanding-us-customs-data',
@@ -129,6 +166,16 @@ export const POSTS = [
     date: '2026-09-23',
     readTime: '6 min read',
     views: 760,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'hs-code-chapters-explained',
@@ -141,6 +188,16 @@ export const POSTS = [
     date: '2026-09-16',
     readTime: '8 min read',
     views: 1150,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'market-research-with-shipment-records',
@@ -153,6 +210,16 @@ export const POSTS = [
     date: '2026-09-09',
     readTime: '9 min read',
     views: 1405,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'build-a-buyer-list-from-export-records',
@@ -165,6 +232,16 @@ export const POSTS = [
     date: '2026-09-02',
     readTime: '5 min read',
     views: 890,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'import-and-export-data-what-is-the-difference',
@@ -177,6 +254,16 @@ export const POSTS = [
     date: '2026-08-26',
     readTime: '4 min read',
     views: 640,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'shipping-routes-and-ports-in-trade-data',
@@ -189,6 +276,16 @@ export const POSTS = [
     date: '2026-08-19',
     readTime: '6 min read',
     views: 705,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
   {
     slug: 'common-hs-code-mistakes',
@@ -201,6 +298,46 @@ export const POSTS = [
     date: '2026-08-12',
     readTime: '5 min read',
     views: 1010,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
+  },
+  {
+    slug: 'us-bill-of-lading-data',
+    title:
+      'US Bill of Lading Data: A Complete Guide to Shipment Records, Fields, and Trade Insights',
+    excerpt:
+      'Explore US bill of lading data, understand shipment records and document fields, and learn how to identify importers, suppliers, shipping routes, and trade opportunities.',
+    image: '/assets/blogs/us-bill-of-lading-cover.webp',
+    category: 'US Imports',
+    tags: [
+      'bill-of-lading',
+      'import-data',
+      'shipment-data',
+      'importers',
+      'suppliers',
+      'trade-intelligence',
+    ],
+    date: '2026-11-18',
+    readTime: '14 min read',
+    views: 0,
+    author: {
+      name: 'USImportdata Editorial Team',
+      role: 'Trade Data Research & Analysis',
+      bio: 'Our editorial team specializes in US import-export data, international trade intelligence, shipment records, and global market trends. We create research-driven content to help businesses make informed trade decisions.',
+      image: '/assets/images/authors/user.png',
+      profileUrl: '/about',
+      socialLinks: {
+        linkedin: 'https://www.linkedin.com/',
+      },
+    },
   },
 ];
 
@@ -210,11 +347,34 @@ export const POSTS = [
 const byDateDesc = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
 const slugOf = (name) => CATEGORIES.find((c) => c.name === name)?.slug ?? '';
 
-// plain text of an article body, used by search
-function bodyText(post) {
-  return getPostContent(post)
-    .map((b) => b.text ?? (b.items ?? []).join(' '))
+function extractBlockText(block) {
+  if (!block) return '';
+
+  if (typeof block === 'string') return block;
+
+  if (Array.isArray(block)) {
+    return block.map(extractBlockText).join(' ');
+  }
+
+  return [
+    block.text,
+    block.caption,
+    block.alt,
+    block.title,
+    block.description,
+    block.items,
+    block.headers,
+    block.rows,
+    block.cells,
+    block.children,
+  ]
+    .map(extractBlockText)
+    .filter(Boolean)
     .join(' ');
+}
+
+function bodyText(post) {
+  return getPostContent(post).map(extractBlockText).join(' ');
 }
 
 // every post, newest first, with its category slug filled in
@@ -320,26 +480,34 @@ export function getSidebarData() {
   return { categories, trending, latest, tags };
 }
 
-/* ------------------------------------------------------------------ */
-/* Article bodies (used by the blog detail page)                       */
-/*                                                                     */
-/* Block types:                                                        */
-/*   { type: 'p',     text }            paragraph                      */
-/*   { type: 'h2',    text }            section heading (feeds the contents list) */
-/*   { type: 'h3',    text }            sub-heading                    */
-/*   { type: 'ul',    items: [] }       bullet list                    */
-/*   { type: 'ol',    items: [] }       numbered list                  */
-/*   { type: 'quote', text }            pull quote                     */
-/*   { type: 'callout', text }          highlighted note               */
-/*   { type: 'image', src, alt, caption }  inline image                */
-/*                                                                     */
-/* SAMPLE TEXT. Posts without an entry here get a generic placeholder body. */
-/* ------------------------------------------------------------------ */
 const CONTENT = {
   'how-to-read-a-us-bill-of-lading': [
     {
       type: 'p',
-      text: 'A bill of lading is the document a carrier issues for a shipment. It records what was shipped, who sent it, who receives it and how it travels. In trade data, each record is built from these details, which is why learning to read one makes your research much faster.',
+      children: [
+        {
+          type: 'text',
+          text: 'US bill of lading data helps you identify ',
+        },
+        {
+          type: 'link',
+          text: 'importers',
+          href: '/companies',
+        },
+        {
+          type: 'text',
+          text: ' and ',
+        },
+        {
+          type: 'link',
+          text: 'suppliers',
+          href: '/import-data',
+        },
+        {
+          type: 'text',
+          text: '.',
+        },
+      ],
     },
     { type: 'h2', text: 'What a bill of lading tells you' },
     {
@@ -399,6 +567,7 @@ const CONTENT = {
       ],
     },
   ],
+  'us-bill-of-lading-data': usBillOfLadingArticle.content,
 };
 
 // generic body for posts that do not have their own entry in CONTENT

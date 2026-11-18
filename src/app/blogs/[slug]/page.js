@@ -13,6 +13,9 @@ import {
   getPostContent,
   getRelatedPosts,
 } from '@/data/blogData';
+import BlogReactions from '@/components/blogs/BlogReactions';
+import AuthorCard from '@/components/blogs/AuthorCard';
+import BlogComments from '@/components/blogs/BlogComment';
 
 const SITE_URL = 'https://usimportdata.com';
 const BLOG_PATH = '/blogs';
@@ -73,7 +76,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// Async article content is separated from the route component.
 async function BlogPostContent({ params }) {
   const { slug } = await params;
 
@@ -134,6 +136,9 @@ async function BlogPostContent({ params }) {
 
       <BlogShell>
         <PostBody post={post} content={content} tags={tags} />
+        <BlogReactions />
+        <AuthorCard author={post.author} />
+        <BlogComments />
 
         <RelatedPosts posts={related} />
       </BlogShell>
