@@ -11,11 +11,11 @@ const SITE_URL = 'https://usimportdata.com';
 const PER_PAGE = 10;
 
 // Pre-build every category archive.
-export function generateStaticParams() {
-  return CATEGORIES.map((category) => ({
-    slug: category.slug,
-  }));
-}
+// export function generateStaticParams() {
+//   return CATEGORIES.map((category) => ({
+//     slug: category.slug,
+//   }));
+// }
 
 // SEO metadata for each category.
 export async function generateMetadata({ params }) {

@@ -11,12 +11,12 @@ const SITE_URL = 'https://usimportdata.com';
 const PER_PAGE = 10;
 
 // Pre-build every tag archive.
-export function generateStaticParams() {
-  console.time('TAG_PARAMS');
-  const params = Object.keys(TAG_NAMES).map((slug) => ({ slug }));
-  console.timeEnd('TAG_PARAMS');
-  return params;
-}
+// export function generateStaticParams() {
+//   console.time('TAG_PARAMS');
+//   const params = Object.keys(TAG_NAMES).map((slug) => ({ slug }));
+//   console.timeEnd('TAG_PARAMS');
+//   return params;
+// }
 
 // SEO metadata for each tag archive.
 export async function generateMetadata({ params }) {

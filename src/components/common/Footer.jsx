@@ -1,11 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import ContactForm from '../contact/ContactForm';
 
-/* ------------------------------------------------------------------ */
-/* Content (edit freely; hrefs are placeholders)                       */
-/* ------------------------------------------------------------------ */
 const BRAND = 'TradeImeX';
 
 const COMPANY_LINKS = [
@@ -25,7 +22,7 @@ const DATA_LINKS = [
     target: '_blank',
   },
   { label: 'Search Live Data', href: '/search-live-data', target: '' },
-  { label: 'Product Directory', href: '/product-directory', target: '' },
+  { label: 'Product Directory', href: '/data-directory', target: '' },
   { label: 'HS Code Directory', href: '/hs-code-directory', target: '' },
 ];
 
@@ -74,23 +71,6 @@ const SOCIALS = [
   },
 ];
 
-const PHONE_CODES = [
-  { code: '+1', label: 'US +1' },
-  { code: '+91', label: 'IN +91' },
-  { code: '+44', label: 'UK +44' },
-  { code: '+86', label: 'CN +86' },
-  { code: '+971', label: 'AE +971' },
-  { code: '+49', label: 'DE +49' },
-  { code: '+65', label: 'SG +65' },
-  { code: '+61', label: 'AU +61' },
-];
-
-/* ------------------------------------------------------------------ */
-/* Small pieces                                                        */
-/* ------------------------------------------------------------------ */
-const inputBase =
-  'h-12 w-full rounded-xl border border-white/10 bg-white/5 text-sm text-white outline-none transition placeholder:text-neutral-500 focus:border-[#5DBAF6] focus:bg-white/[0.07] focus:ring-4 focus:ring-[#5DBAF6]/20';
-
 function Icon({ children }) {
   return (
     <svg
@@ -105,43 +85,6 @@ function Icon({ children }) {
     >
       {children}
     </svg>
-  );
-}
-
-const UserIcon = () => (
-  <Icon>
-    <circle cx="12" cy="8" r="4" />
-    <path d="M4 21a8 8 0 0 1 16 0" />
-  </Icon>
-);
-const MailIcon = () => (
-  <Icon>
-    <rect x="3" y="5" width="18" height="14" rx="2" />
-    <path d="m3 7 9 6 9-6" />
-  </Icon>
-);
-const BuildingIcon = () => (
-  <Icon>
-    <rect x="5" y="3" width="14" height="18" rx="1.500" />
-    <path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3" />
-  </Icon>
-);
-
-function Field({ id, label, icon, children, className = '' }) {
-  return (
-    <div className={className}>
-      <label htmlFor={id} className="mb-2 block text-sm font-medium text-neutral-200">
-        {label}
-      </label>
-      <div className="relative">
-        {icon && (
-          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500">
-            {icon}
-          </span>
-        )}
-        {children}
-      </div>
-    </div>
   );
 }
 
@@ -167,253 +110,6 @@ function FooterLinks({ title, links }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Contact form                                                        */
-/* ------------------------------------------------------------------ */
-const EMPTY = {
-  name: '',
-  email: '',
-  phoneCode: '+1',
-  phone: '',
-  company: '',
-  tradeType: '',
-  requirement: '',
-};
-
-function ContactForm({ onSubmit }) {
-  const [form, setForm] = useState(EMPTY);
-  const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle'); // idle | sending | success | error
-
-  const set = (key) => (e) => {
-    setForm((f) => ({ ...f, [key]: e.target.value }));
-    if (errors[key]) setErrors((er) => ({ ...er, [key]: undefined }));
-  };
-
-  const validate = () => {
-    const er = {};
-    if (!form.name.trim()) er.name = 'Please enter your name.';
-    if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) er.email = 'Please enter a valid email.';
-    if (form.phone && form.phone.replace(/\D/g, '').length < 6)
-      er.phone = 'Please enter a valid phone number.';
-    return er;
-  };
-
-  const submit = async (e) => {
-    e.preventDefault();
-    const er = validate();
-    setErrors(er);
-    if (Object.keys(er).length) return;
-
-    setStatus('sending');
-    try {
-      if (onSubmit) {
-        await onSubmit(form);
-      } else {
-        console.info('Footer contact form (no onSubmit handler set):', form);
-      }
-      setStatus('success');
-      setForm(EMPTY);
-    } catch {
-      setStatus('error');
-    }
-  };
-
-  const errText = (key) =>
-    errors[key] ? (
-      <p role="alert" className="mt-1.5 text-xs text-red-400">
-        {errors[key]}
-      </p>
-    ) : null;
-
-  if (status === 'success') {
-    return (
-      <div className="flex min-h-[420px] flex-col items-center justify-center rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center">
-        <span className="grid h-14 w-14 place-items-center rounded-full bg-[#5DBAF6]/15 text-[#5DBAF6]">
-          <svg
-            viewBox="0 0 24 24"
-            className="h-7 w-7"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.200"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m5 12.500 4.500 4.500L19 7.500" />
-          </svg>
-        </span>
-        <h4 className="mt-5 text-lg font-semibold text-white">Thanks, we got it!</h4>
-        <p className="mt-2 max-w-xs text-sm text-neutral-400">
-          Our team will get back to you shortly with a quote.
-        </p>
-        <button
-          type="button"
-          onClick={() => setStatus('idle')}
-          className="mt-6 text-sm font-medium text-[#5DBAF6] hover:underline"
-        >
-          Send another request
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <form
-      onSubmit={submit}
-      noValidate
-      className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-7"
-    >
-      <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-white">Contact Us</h3>
-
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
-        <div>
-          <Field id="ft-name" label="Name" icon={<UserIcon />}>
-            <input
-              id="ft-name"
-              type="text"
-              autoComplete="name"
-              value={form.name}
-              onChange={set('name')}
-              placeholder="Name"
-              aria-invalid={!!errors.name}
-              className={`${inputBase} pl-10 pr-3 ${errors.name ? 'border-red-400/70' : ''}`}
-            />
-          </Field>
-          {errText('name')}
-        </div>
-
-        <div>
-          <Field id="ft-email" label="Email" icon={<MailIcon />}>
-            <input
-              id="ft-email"
-              type="email"
-              autoComplete="email"
-              value={form.email}
-              onChange={set('email')}
-              placeholder="E-Mail"
-              aria-invalid={!!errors.email}
-              className={`${inputBase} pl-10 pr-3 ${errors.email ? 'border-red-400/70' : ''}`}
-            />
-          </Field>
-          {errText('email')}
-        </div>
-
-        <div>
-          <label htmlFor="ft-phone" className="mb-2 block text-sm font-medium text-neutral-200">
-            Phone number:
-          </label>
-          <div
-            className={`flex h-12 overflow-hidden rounded-xl border bg-white/5 transition focus-within:border-[#5DBAF6] focus-within:ring-4 focus-within:ring-[#5DBAF6]/20 ${
-              errors.phone ? 'border-red-400/70' : 'border-white/10'
-            }`}
-          >
-            <select
-              aria-label="Country code"
-              value={form.phoneCode}
-              onChange={set('phoneCode')}
-              className="h-full cursor-pointer border-r border-white/10 bg-[#14142a] pl-3 pr-1 text-xs font-medium text-neutral-200 outline-none"
-            >
-              {PHONE_CODES.map((c) => (
-                <option key={c.code} value={c.code}>
-                  {c.label}
-                </option>
-              ))}
-            </select>
-            <input
-              id="ft-phone"
-              type="tel"
-              autoComplete="tel-national"
-              value={form.phone}
-              onChange={set('phone')}
-              placeholder="201-555-0123"
-              className="h-full min-w-0 flex-1 bg-transparent px-3 text-sm text-white outline-none placeholder:text-neutral-500"
-            />
-          </div>
-          {errText('phone')}
-        </div>
-
-        <Field id="ft-company" label="Company" icon={<BuildingIcon />}>
-          <input
-            id="ft-company"
-            type="text"
-            autoComplete="organization"
-            value={form.company}
-            onChange={set('company')}
-            placeholder="Company"
-            className={`${inputBase} pl-10 pr-3`}
-          />
-        </Field>
-      </div>
-
-      <div className="mt-5">
-        <label htmlFor="ft-type" className="mb-2 block text-sm font-medium text-neutral-200">
-          Import/Export
-        </label>
-        <div className="relative">
-          <select
-            id="ft-type"
-            value={form.tradeType}
-            onChange={set('tradeType')}
-            className={`${inputBase} cursor-pointer appearance-none bg-[#14142a] px-3.5 pr-10 ${
-              form.tradeType ? '' : 'text-neutral-500'
-            }`}
-          >
-            <option value="">Select...</option>
-            <option value="import">Import</option>
-            <option value="export">Export</option>
-            <option value="both">Both</option>
-          </select>
-          <svg
-            viewBox="0 0 24 24"
-            className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </div>
-      </div>
-
-      <div className="mt-5">
-        <label htmlFor="ft-req" className="mb-2 block text-sm font-medium text-neutral-200">
-          Describe Your Requirement
-        </label>
-        <textarea
-          id="ft-req"
-          rows={4}
-          value={form.requirement}
-          onChange={set('requirement')}
-          placeholder="Describe Your Requirement..."
-          className="w-full resize-y rounded-xl border border-white/10 bg-white/5 px-3.5 py-3 text-sm text-white outline-none transition placeholder:text-neutral-500 focus:border-[#5DBAF6] focus:bg-white/[0.07] focus:ring-4 focus:ring-[#5DBAF6]/20"
-        />
-      </div>
-
-      {status === 'error' && (
-        <p role="alert" className="mt-4 text-sm text-red-400">
-          Something went wrong. Please try again.
-        </p>
-      )}
-
-      <button
-        type="submit"
-        disabled={status === 'sending'}
-        className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#5DBAF6] text-sm font-semibold text-[#07070f] transition hover:bg-[#7ccaff] focus:outline-none focus:ring-4 focus:ring-[#5DBAF6]/40 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {status === 'sending' ? 'Sending...' : 'Submit'}
-        {status !== 'sending' && <span aria-hidden="true">→</span>}
-      </button>
-    </form>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Floating chat button                                                */
-/* ------------------------------------------------------------------ */
 function ChatButton({ onClick }) {
   return (
     <div className="fixed bottom-5 right-5 z-50 flex items-center gap-3">
@@ -434,25 +130,17 @@ function ChatButton({ onClick }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Footer                                                              */
-/* ------------------------------------------------------------------ */
-/**
- * Props:
- *  - onSubmit(form): async handler for the contact form (e.g. POST to your API).
- *  - onChatClick(): called when the floating chat button is clicked.
- */
-export default function Footer({ onSubmit, onChatClick }) {
+export default function Footer({ onChatClick }) {
   return (
     <footer className="relative overflow-hidden bg-[#07070f] text-neutral-300">
       {/* decorative glow + top hairline */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5DBAF6]/60 to-transparent" />
       <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-[#5DBAF6]/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-8 pt-16 lg:px-10 lg:pt-20">
+      <div className="relative mx-auto max-w-7xl px-2 pb-8 pt-16 lg:pt-20">
         <div className="grid gap-x-10 gap-y-14 lg:grid-cols-12">
           {/* About */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-white">
               About Us
             </h3>
@@ -477,12 +165,12 @@ export default function Footer({ onSubmit, onChatClick }) {
           </div>
 
           {/* Contact form spans both rows on desktop */}
-          <div className="lg:col-span-4 lg:row-span-2">
-            <ContactForm onSubmit={onSubmit} />
+          <div className="lg:col-span-5 lg:row-span-2">
+            <ContactForm theme="dark" />
           </div>
 
           {/* Top imports */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <FooterLinks title="US Top Imports Data" links={TOP_IMPORTS} />
           </div>
 

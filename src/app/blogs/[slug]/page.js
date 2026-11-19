@@ -21,11 +21,11 @@ const SITE_URL = 'https://usimportdata.com';
 const BLOG_PATH = '/blogs';
 
 // Pre-build every sample post.
-export function generateStaticParams() {
-  return getAllPosts().map((post) => ({
-    slug: post.slug,
-  }));
-}
+// export function generateStaticParams() {
+//   return getAllPosts().map((post) => ({
+//     slug: post.slug,
+//   }));
+// }
 
 // SEO metadata for each article.
 export async function generateMetadata({ params }) {

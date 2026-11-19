@@ -207,3 +207,26 @@ export const FAQ_PAGE_DATA = {
     },
   ],
 };
+
+export const HS_FAQS = [
+  {
+    q: 'What is an HS code?',
+    a: 'The Harmonized System (HS) is an international way of naming and numbering traded products. Each product gets a code, and customs authorities use it to apply duties, collect statistics and check shipments. The first six digits are the same in almost every country.',
+  },
+  {
+    q: 'How is an HS code structured?',
+    a: 'The first two digits are the chapter, the first four are the heading and the first six are the subheading. For example, 85 is electrical machinery, 8517 is telephone sets and 851713 is smartphones. The US adds more digits after these six for its own tariff and statistics.',
+  },
+  {
+    q: 'How do I find the HS code for my product?',
+    a: 'Choose the chapter that matches your product, or search by name or number at the top of this page. Each chapter lists its codes, and each code links to the companies or the trade data for it.',
+  },
+  {
+    q: 'What is the difference between the Company and Data options?',
+    a: 'Company shows the importers or exporters that ship under an HS code. Data shows the shipment records for that code. You can switch between Import and Export, and between Company and Data, at any time.',
+  },
+  {
+    q: 'Why are some codes in the directory different from codes I have seen elsewhere?',
+    a: 'Countries add their own digits after the first six, and the HS itself is revised every five years. If a code does not match, compare the first six digits and check the year of the version you are using.',
+  },
+];

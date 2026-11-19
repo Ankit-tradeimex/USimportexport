@@ -5,12 +5,7 @@ import { Check, Loader2, Send } from 'lucide-react';
 import { DATA_TYPES } from '@/data/contactData';
 import { PhoneField, SelectField, TextAreaField, TextField } from './FormFields';
 
-/*
-  Why this form does not re-render while you type:
-  the inputs are uncontrolled (no value / onChange). The browser keeps what you type, and we read every field
-  at once with FormData when the form is submitted. The only state here is the send status.
-*/
-export default function ContactForm() {
+export default function ContactForm({ theme = 'auto' }) {
   const [status, setStatus] = useState('idle'); // idle | sending | done | error
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
@@ -53,7 +48,11 @@ export default function ContactForm() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.55 }}
-        className="rounded-3xl border border-slate-200 bg-white p-6 shadow-xl sm:p-8 dark:border-white/10 dark:bg-transparent dark:bg-linear-to-br dark:from-white/[0.12] dark:to-white/[0.03] dark:shadow-none dark:backdrop-blur-xl"
+        className={`rounded-3xl border p-6 shadow-xl sm:p-8 ${
+          theme === 'dark'
+            ? 'border-white/10 bg-linear-to-br from-white/[0.12] to-white/[0.03] text-white shadow-none backdrop-blur-xl'
+            : 'border-slate-200 bg-white shadow-xl dark:border-white/10 dark:bg-transparent dark:bg-linear-to-br dark:from-white/[0.12] dark:to-white/[0.03] dark:shadow-none dark:backdrop-blur-xl'
+        }`}
       >
         {status === 'done' ? (
           <div className="flex flex-col items-center py-10 text-center" role="status">
@@ -76,10 +75,18 @@ export default function ContactForm() {
           </div>
         ) : (
           <>
-            <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            <h2
+              className={`text-2xl font-semibold tracking-tight ${
+                theme === 'dark' ? 'text-white' : 'text-slate-900 dark:text-white'
+              }`}
+            >
               Send us an enquiry
             </h2>
-            <p className="mt-1.5 text-sm text-slate-600 dark:text-white/65">
+            <p
+              className={`mt-1.5 text-sm ${
+                theme === 'dark' ? 'text-white/65' : 'text-slate-600 dark:text-white/65'
+              }`}
+            >
               Fields marked * are required.
             </p>
 
@@ -95,6 +102,7 @@ export default function ContactForm() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <TextField
                   label="Name"
+                  theme={theme}
                   name="name"
                   required
                   autoComplete="name"
@@ -104,6 +112,7 @@ export default function ContactForm() {
                 />
                 <TextField
                   label="Company name"
+                  theme={theme}
                   name="company"
                   autoComplete="organization"
                   placeholder="Company name"
@@ -115,6 +124,7 @@ export default function ContactForm() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <TextField
                   label="Business email"
+                  theme={theme}
                   name="email"
                   type="email"
                   required
@@ -126,17 +136,19 @@ export default function ContactForm() {
                 <SelectField
                   label="Data type"
                   name="dataType"
+                  theme={theme}
                   options={DATA_TYPES}
                   placeholder="Select data type"
                   error={errors.dataType}
                 />
               </div>
 
-              <PhoneField error={errors.phone} />
+              <PhoneField theme={theme} error={errors.phone} />
 
               <TextAreaField
                 label="Query"
                 name="query"
+                theme={theme}
                 required
                 placeholder="Product, HS code, country or market requirement"
                 error={errors.query}

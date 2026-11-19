@@ -94,7 +94,7 @@ export default function SearchSection({ onSearch }) {
   const [resultType, setResultType] = useState('data');
   const [searchBy, setSearchBy] = useState('product');
   const [term, setTerm] = useState('');
-  const [country, setCountry] = useState(COUNTRIES[0]);
+  // const [country, setCountry] = useState(COUNTRIES[0]);
   const [error, setError] = useState('');
 
   const field = SEARCH_BY[searchBy];
@@ -213,7 +213,7 @@ export default function SearchSection({ onSearch }) {
               />
             </div>
 
-            <div>
+            {/* <div>
               <label htmlFor="trade-country" className="sr-only">
                 Country
               </label>
@@ -230,7 +230,7 @@ export default function SearchSection({ onSearch }) {
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
 
             <button
               type="submit"
