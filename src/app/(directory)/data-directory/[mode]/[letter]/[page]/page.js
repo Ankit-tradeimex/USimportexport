@@ -16,10 +16,8 @@ import {
 
 const SITE_URL = 'https://usimportdata.com';
 
-// Read and validate everything from the URL in one place.
-async function load({ params, searchParams }) {
-  const [{ mode, letter: rawLetter, page }, sp] = await Promise.all([params, searchParams]);
-
+// Validate URL data in one place
+function loadRoute({ mode, letter: rawLetter, page }, sp) {
   const m = parseDdMode(mode);
   const letter = String(rawLetter).toLowerCase();
   const pageNum = Number(page);
@@ -29,25 +27,22 @@ async function load({ params, searchParams }) {
   }
 
   const q = typeof sp?.q === 'string' ? sp.q.slice(0, 60) : '';
-
-  const data = getProducts({
-    letter,
-    q,
-    page: pageNum,
-  });
+  const data = getProducts({ letter, q, page: pageNum });
 
   if (pageNum > data.totalPages) return null;
 
   return { mode, m, letter, pageNum, q, data };
 }
 
-export async function generateMetadata(props) {
-  const r = await load(props);
+// SEO metadata
+export async function generateMetadata({ params, searchParams }) {
+  const [routeParams, sp] = await Promise.all([params, searchParams]);
+
+  const r = loadRoute(routeParams, sp);
 
   if (!r) return {};
 
   const { mode, m, letter, pageNum, q, data } = r;
-
   const title = ddTitle(m, letter);
 
   return {
@@ -56,23 +51,24 @@ export async function generateMetadata(props) {
     alternates: {
       canonical: `${SITE_URL}/data-directory/${mode}/${letter}/${pageNum}`,
     },
-    // Keep empty and filtered pages out of search results.
     robots: data.totalAll === 0 || q ? { index: false, follow: true } : undefined,
   };
 }
 
-// Synchronous page shell.
-export default function Page(props) {
+// Route page
+export default function Page({ params, searchParams }) {
   return (
-    <Suspense fallback={<DdPageSkeleton />}>
-      <DdPageContent props={props} />
+    <Suspense fallback={<DdProductPageSkeleton />}>
+      <DdProductPageContent params={params} searchParams={searchParams} />
     </Suspense>
   );
 }
 
-// URL-dependent rendering inside Suspense.
-async function DdPageContent({ props }) {
-  const r = await load(props);
+// Async content inside Suspense
+async function DdProductPageContent({ params, searchParams }) {
+  const [routeParams, sp] = await Promise.all([params, searchParams]);
+
+  const r = loadRoute(routeParams, sp);
 
   if (!r) notFound();
 
@@ -92,7 +88,11 @@ async function DdPageContent({ props }) {
         <DdModeSwitcher mode={m} letter={letter} />
       </div>
 
-      <DdLetterStrip modeSlug={mode} letter={letter} counts={getLetterCounts()} />
+      <DdLetterStrip
+        basePath={`/data-directory/${mode}`}
+        letter={letter}
+        counts={getLetterCounts()}
+      />
 
       <DdProductGrid
         modeSlug={mode}
@@ -109,26 +109,28 @@ async function DdPageContent({ props }) {
   );
 }
 
-function DdPageSkeleton() {
+// Suspense fallback
+function DdProductPageSkeleton() {
   return (
     <main className="min-h-screen animate-pulse">
-      <div className="mx-auto max-w-7xl px-5 py-12">
-        <div className="mb-5 h-4 w-40 rounded bg-neutral-200 dark:bg-slate-800" />
+      <section className="mx-auto max-w-7xl px-4 py-12">
+        <div className="h-8 w-2/3 rounded-lg bg-slate-200 dark:bg-white/10" />
+        <div className="mt-4 h-4 w-1/2 rounded bg-slate-200 dark:bg-white/10" />
 
-        <div className="mb-4 h-10 w-2/3 rounded-lg bg-neutral-200 dark:bg-slate-800" />
+        <div className="mt-10 h-12 w-full rounded-xl bg-slate-200 dark:bg-white/10" />
 
-        <div className="mb-8 h-5 w-full max-w-2xl rounded bg-neutral-200 dark:bg-slate-800" />
-
-        <div className="mb-8 h-32 rounded-2xl bg-neutral-200 dark:bg-slate-800" />
-
-        <div className="mb-8 h-12 rounded-xl bg-neutral-200 dark:bg-slate-800" />
-
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <div key={item} className="h-48 rounded-2xl bg-neutral-200 dark:bg-slate-800" />
+        <div className="mt-8 flex gap-3 overflow-hidden">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="h-10 min-w-16 rounded-lg bg-slate-200 dark:bg-white/10" />
           ))}
         </div>
-      </div>
+
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div key={i} className="h-36 rounded-2xl bg-slate-200 dark:bg-white/10" />
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

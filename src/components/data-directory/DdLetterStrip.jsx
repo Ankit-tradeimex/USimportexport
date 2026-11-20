@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { LETTERS, ddPath } from '@/data/productDirectoryData';
+import { LETTERS } from '@/data/productDirectoryData';
 
 const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
@@ -18,12 +18,20 @@ function restoreScroll() {
   });
 }
 
-const N = LETTERS.length;
+// '0-9' is the entry for names that do not start with a letter, shown as '#'
+const label = (l) => (l === '0-9' ? '#' : l.toUpperCase());
 
-export default function DdLetterStrip({ modeSlug, letter, counts }) {
+/*
+  Shared A-Z strip.  basePath is the part of the URL before the letter, e.g.
+    /data-directory/us-import-data      ->  links go to /data-directory/us-import-data/<letter>/1
+    /company-directory/us-importer
+  letters defaults to a-z; pass [...a-z, '0-9'] to add the '#' entry.
+*/
+export default function DdLetterStrip({ basePath, letter, counts, letters = LETTERS }) {
+  const N = letters.length;
   const [shown, setShown] = useState(memory.letter ?? letter);
   const scroller = useRef(null);
-  const index = Math.max(0, LETTERS.indexOf(shown));
+  const index = Math.max(0, letters.indexOf(shown));
 
   useIsoLayoutEffect(() => {
     restoreScroll();
@@ -58,7 +66,7 @@ export default function DdLetterStrip({ modeSlug, letter, counts }) {
   };
 
   return (
-    <nav aria-label="Products A to Z" className="sticky top-4 z-30 mt-8 px-4">
+    <nav aria-label="A to Z" className="sticky top-4 z-30 mt-8 px-4">
       <div className="mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-white/90 p-1.5 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-[#0c0c2b]/80">
         <div
           ref={scroller}
@@ -74,7 +82,7 @@ export default function DdLetterStrip({ modeSlug, letter, counts }) {
               className="pointer-events-none absolute inset-y-0 left-0 rounded-xl bg-linear-to-br from-[#B31942] to-[#0A3161] shadow-md transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none"
               style={{ width: `${100 / N}%`, transform: `translateX(${index * 100}%)` }}
             />
-            {LETTERS.map((l) => {
+            {letters.map((l) => {
               const on = l === shown;
               const empty = !counts[l];
               const base =
@@ -84,22 +92,22 @@ export default function DdLetterStrip({ modeSlug, letter, counts }) {
                   <span
                     key={l}
                     aria-disabled="true"
-                    title="No products yet"
+                    title="Nothing under this letter yet"
                     className={`${base} cursor-default text-slate-300 dark:text-white/20`}
                   >
-                    {l.toUpperCase()}
+                    {label(l)}
                   </span>
                 );
               return (
                 <Link
                   key={l}
-                  href={ddPath(modeSlug, l, 1)}
+                  href={`${basePath}/${l}/1`}
                   scroll={false}
                   onClick={() => pick(l)}
                   aria-current={on ? 'page' : undefined}
                   className={`${base} ${on ? 'text-white' : 'text-slate-600 hover:text-[#B31942] dark:text-white/70 dark:hover:text-[#ff8da0]'}`}
                 >
-                  {l.toUpperCase()}
+                  {label(l)}
                 </Link>
               );
             })}

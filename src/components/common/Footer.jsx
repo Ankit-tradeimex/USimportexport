@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import ContactForm from '../contact/ContactForm';
+import { dataPath } from '@/lib/dataSlug';
 
 const BRAND = 'TradeImeX';
 
@@ -24,22 +25,26 @@ const DATA_LINKS = [
   { label: 'Search Live Data', href: '/search-live-data', target: '' },
   { label: 'Product Directory', href: '/data-directory', target: '' },
   { label: 'HS Code Directory', href: '/hs-code-directory', target: '' },
+  { label: 'Company Directory', href: '/company-directory', target: '' },
 ];
 
+const imp = (product) => dataPath({ role: 'import', product });
+const exp = (product) => dataPath({ role: 'export', product });
+
 const TOP_IMPORTS = [
-  { label: 'Oil Import Data', href: '/us-import-data/oil' },
-  { label: 'Car Import Data', href: '/us-import-data/car' },
-  { label: 'Food Import Data', href: '/us-import-data/food' },
-  { label: 'Surgical Equipment Import Data', href: '/us-import-data/surgical-equipment' },
-  { label: 'Pharmaceutical Import Data', href: '/us-import-data/pharmaceutical' },
+  { label: 'Oil Import Data', href: imp('oil') }, // /data/us-oil-import-data
+  { label: 'Car Import Data', href: imp('car') }, // /data/us-car-import-data
+  { label: 'Food Import Data', href: imp('food') }, // /data/us-food-import-data
+  { label: 'Surgical Equipment Import Data', href: imp('surgical-equipment') }, // /data/us-surgical-equipment-import-data
+  { label: 'Pharmaceutical Import Data', href: imp('pharmaceutical') }, // /data/us-pharmaceutical-import-data
 ];
 
 const TOP_EXPORTS = [
-  { label: 'Pharmaceutical Export Data', href: '/us-export-data/pharmaceutical' },
-  { label: 'Electronics Export Data', href: '/us-export-data/electronics' },
-  { label: 'Oil Export Data', href: '/us-export-data/oil' },
-  { label: 'Vehicles Export Data', href: '/us-export-data/vehicles' },
-  { label: 'Soybean Export Data', href: '/us-export-data/soybean' },
+  { label: 'Pharmaceutical Export Data', href: exp('pharmaceutical') }, // /data/us-pharmaceutical-export-data
+  { label: 'Electronics Export Data', href: exp('electronics') }, // /data/us-electronics-export-data
+  { label: 'Oil Export Data', href: exp('oil') }, // /data/us-oil-export-data
+  { label: 'Vehicles Export Data', href: exp('vehicles') }, // /data/us-vehicles-export-data
+  { label: 'Soybean Export Data', href: exp('soybean') }, // /data/us-soybean-export-data
 ];
 
 const LEGAL_LINKS = [
@@ -70,23 +75,6 @@ const SOCIALS = [
     d: 'M23 12s0-3.400-.4-5a2.600 2.600 0 0 0-1.800-1.800C19.200 4.800 12 4.800 12 4.800s-7.200 0-8.800.4A2.600 2.600 0 0 0 1.400 7C1 8.600 1 12 1 12s0 3.400.4 5a2.600 2.600 0 0 0 1.800 1.800c1.600.4 8.800.4 8.800.4s7.200 0 8.800-.4a2.600 2.600 0 0 0 1.800-1.800c.4-1.600.4-5 .4-5zM9.800 15.200V8.800L15.500 12l-5.700 3.200z',
   },
 ];
-
-function Icon({ children }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="h-4 w-4"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {children}
-    </svg>
-  );
-}
 
 function FooterLinks({ title, links }) {
   return (

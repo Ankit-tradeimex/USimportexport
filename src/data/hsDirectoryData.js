@@ -1,3 +1,17 @@
+/*
+  HS code directory data.
+
+  Sections and chapters follow the standard Harmonized System layout (chapter 77 is reserved and has no entry;
+  chapters 98 and 99 are US special provisions). Titles are shortened so they fit on cards: check them
+  against your own data before publishing.
+
+  When your API is ready, replace the arrays with fetched data and keep the helper functions.
+*/
+
+/* ------------------------------------------------------------------ */
+/* Sections                                                            */
+/* ------------------------------------------------------------------ */
+// from / to = first and last chapter number of the section
 export const SECTIONS = [
   { id: '1', title: 'Live Animals; Animal Products', from: 1, to: 5 },
   { id: '2', title: 'Vegetable Products', from: 6, to: 14 },
@@ -23,6 +37,9 @@ export const SECTIONS = [
   { id: '22', title: 'US Special Classification Provisions', from: 98, to: 99 },
 ];
 
+/* ------------------------------------------------------------------ */
+/* Chapters  [number, short title]                                     */
+/* ------------------------------------------------------------------ */
 const RAW_CHAPTERS = [
   [1, 'Live animals'],
   [2, 'Meat and edible meat offal'],
@@ -491,7 +508,7 @@ export function getAdjacentChapters(chapter) {
 export function getCodeHref({ role, type, code }) {
   if (type === 'company')
     return `/company/us-${code}-${role === 'export' ? 'exporter' : 'importer'}`;
-  return `/data/us-${code}-${role}`;
+  return `/data/us-${code}-${role}-data`;
 }
 
 export const codeLinkLabel = ({ role, type }) =>

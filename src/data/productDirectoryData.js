@@ -1,3 +1,9 @@
+/*
+  Data directory: products listed A–Z.  URL: /data-directory/<mode>/<letter>/<page>
+
+  SAMPLE products only. Replace PRODUCTS with your real list (or fetch it) and keep the helpers.
+  Shape of one product: [name, categoryId]
+*/
 import { ROLES, TYPES } from './hsDirectoryData';
 
 export { ROLES, TYPES };
@@ -5,6 +11,9 @@ export { ROLES, TYPES };
 export const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
 export const PER_PAGE = 16;
 
+/* ------------------------------------------------------------------ */
+/* Categories                                                          */
+/* ------------------------------------------------------------------ */
 export const CATEGORIES = {
   food: 'Food & Agriculture',
   chemicals: 'Chemicals',
@@ -27,6 +36,9 @@ export const CATEGORIES = {
   misc: 'Other Goods',
 };
 
+/* ------------------------------------------------------------------ */
+/* Sample products (compact: 'Name|category')                          */
+/* ------------------------------------------------------------------ */
 const RAW = `
 Automobiles|vehicles
 Aircraft Parts|aero
@@ -217,7 +229,7 @@ export function ddIntro({ role, type }, letter) {
 export function getProductHref({ role, type, slug }) {
   if (type === 'company')
     return `/company/us-${slug}-${role === 'export' ? 'exporter' : 'importer'}`;
-  return `/data/us-${slug}-${role}`;
+  return `/data/us-${slug}-${role}-data`;
 }
 
 export const productLinkLabel = ({ role, type }) =>

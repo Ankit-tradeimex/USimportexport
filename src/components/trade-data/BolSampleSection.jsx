@@ -5,10 +5,8 @@ import Link from 'next/link';
 import { MotionConfig, motion, useReducedMotion } from 'framer-motion';
 import { Check, Copy, FileText, MapPin, Package, Route, Ship, Users } from 'lucide-react';
 import { HiArrowLongRight } from 'react-icons/hi2';
-import { AU, KR, US } from 'country-flag-icons/react/3x2';
-
-// add more flags here if your sample uses other countries
-const FLAGS = { AU, KR, US };
+import { AU, CN, DE, IN, KR, MX, US, VN } from 'country-flag-icons/react/3x2';
+const FLAGS = { AU, CN, DE, IN, KR, MX, US, VN };
 const ICONS = { doc: FileText, route: Route, parties: Users, cargo: Package, ship: Ship };
 
 const ACCENT = {
