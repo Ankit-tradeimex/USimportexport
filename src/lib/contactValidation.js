@@ -2,6 +2,88 @@ import { DATA_TYPES, DIAL_CODES } from '@/data/contactData';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+// Your own domains are always accepted (add any other company domains here).
+const COMPANY_DOMAINS = ['usimportdata.com', 'tradeimex.in'];
+
+// Free / personal email providers: not accepted.
+const FREE_EMAIL_DOMAINS = new Set([
+  'gmail.com',
+  'googlemail.com',
+  'yahoo.com',
+  'ymail.com',
+  'rocketmail.com',
+  'outlook.com',
+  'hotmail.com',
+  'live.com',
+  'msn.com',
+  'aol.com',
+  'icloud.com',
+  'me.com',
+  'mac.com',
+  'proton.me',
+  'protonmail.com',
+  'pm.me',
+  'tutanota.com',
+  'tuta.io',
+  'zoho.com',
+  'zohomail.com',
+  'mail.com',
+  'gmx.com',
+  'gmx.net',
+  'gmx.de',
+  'yandex.com',
+  'yandex.ru',
+  'mail.ru',
+  'inbox.com',
+  'fastmail.com',
+  'rediffmail.com',
+  'qq.com',
+  '163.com',
+  '126.com',
+  'naver.com',
+  'daum.net',
+  'web.de',
+  'libero.it',
+  'orange.fr',
+  'wanadoo.fr',
+  'rambler.ru',
+]);
+
+// Regional variants of the big providers: yahoo.co.in, outlook.in, hotmail.co.uk, live.fr ...
+const FREE_EMAIL_PREFIX_RE = /^(?:yahoo|ymail|hotmail|outlook|live|msn|gmail)\./i;
+
+// Disposable / temporary inboxes: not accepted.
+const DISPOSABLE_DOMAINS = new Set([
+  'mailinator.com',
+  'guerrillamail.com',
+  'guerrillamail.net',
+  'sharklasers.com',
+  'tempmail.com',
+  'temp-mail.org',
+  '10minutemail.com',
+  'yopmail.com',
+  'trashmail.com',
+  'getnada.com',
+  'maildrop.cc',
+  'dispostable.com',
+  'throwawaymail.com',
+  'fakeinbox.com',
+  'mintemail.com',
+]);
+
+const domainMatches = (domain, list) => list.some((d) => domain === d || domain.endsWith(`.${d}`));
+
+// true when the address is a business address (or one of your own company addresses)
+export function isBusinessEmail(email) {
+  const domain = String(email).toLowerCase().split('@')[1] || '';
+  if (!domain) return false;
+  if (domainMatches(domain, COMPANY_DOMAINS)) return true;
+  if (FREE_EMAIL_PREFIX_RE.test(domain)) return false;
+  if (domainMatches(domain, [...FREE_EMAIL_DOMAINS])) return false;
+  if (domainMatches(domain, [...DISPOSABLE_DOMAINS])) return false;
+  return true;
+}
+
 // Detect URLs, domains and common link formats.
 const LINK_RE =
   /(?:https?:\/\/|ftp:\/\/|www\.)\S+|\b[a-z0-9-]+\.(?:com|org|net|io|co|in|gov|edu|biz|info|dev|app|ai)(?:\/[^\s]*)?/i;
@@ -60,6 +142,9 @@ export function validateContact(body = {}) {
 
   if (!EMAIL_RE.test(email)) {
     errors.email = 'Please enter a valid email address.';
+  } else if (!isBusinessEmail(email)) {
+    errors.email =
+      'Please use your business email address. Personal emails such as Gmail or Yahoo are not accepted.';
   }
 
   if (query.length < 10) {

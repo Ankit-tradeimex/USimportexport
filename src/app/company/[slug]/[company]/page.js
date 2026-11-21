@@ -5,13 +5,17 @@ import FaqSection from '@/components/common/FaqSection';
 import CompanyProfileHero from '@/components/company/CompanyProfileHero';
 import BolSampleSection from '@/components/trade-data/BolSampleSection';
 import CompanySimilar from '@/components/company/CompanySimilar';
+import CompanyGlance from '@/components/company/CompanyGlance';
+import CompanyProducts from '@/components/company/CompanyProducts';
+import CompanyLanes from '@/components/company/CompanyLanes';
 
 import { DASHBOARD } from '@/lib/dashboard';
 import { buildBolData } from '@/lib/companyBol';
-import { companyPath, parseCompanySlug, productName } from '@/lib/dataSlug';
+import { companyPath, dataPath, parseCompanySlug, productName } from '@/lib/dataSlug';
 
 import { getSimilarCompanies } from '@/data/companySample';
 import { getCompanyProfile } from '@/data/companyProfileSample';
+import { TEASER_ROWS } from '@/data/tradeDataSample';
 import { buildProfileFaqs, buildProfileMeta, roleWords } from '@/data/companyProfileText';
 
 const SITE_URL = 'https://usimportdata.com';
@@ -74,7 +78,7 @@ async function CompanyProfileContent({ params }) {
   if (!r) notFound();
   if (r.redirect) permanentRedirect(r.redirect);
 
-  const { role, term, company, address, record, meta } = r;
+  const { role, term, company, address, record, meta, stats, products, partners, shipments } = r;
   const w = roleWords(role);
   const listHref = companyPath(term);
 
@@ -85,6 +89,15 @@ async function CompanyProfileContent({ params }) {
     exclude: company.slug,
   });
 
+  const imp = role === 'import';
+  const sinceText = new Date(`${stats.since}-01T00:00:00Z`).toLocaleString('en-US', {
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+  // the data page context, so the table links (HS code, country, port) open the matching data pages
+  const ctx = { role, hs: term.hs, product: term.product, country: '', port: '' };
+
   return (
     <>
       <CompanyProfileHero
@@ -94,7 +107,28 @@ async function CompanyProfileContent({ params }) {
         crumbs={[{ label: `US ${productName(company.product)} ${w.many}`, href: listHref }]}
       />
 
+      <CompanyGlance
+        total={stats.total}
+        sinceText={sinceText}
+        topHs={stats.topHs}
+        topCountry={stats.topCountry}
+        role={role}
+      />
+
       <BolSampleSection data={buildBolData({ role, record, meta })} />
+
+      <CompanyProducts
+        heading={`Top products of ${company.name}`}
+        intro={`The HS codes ${company.name} ${imp ? 'imports' : 'exports'} most often. Open a code to see its US ${role} data.`}
+        products={products.map((p) => ({ ...p, href: dataPath({ role, hs: p.hs }) }))}
+      />
+
+      <CompanyLanes
+        heading={`Where ${company.name} ${imp ? 'imports from' : 'exports to'}`}
+        intro={`The top ${imp ? 'origin' : 'destination'} countries of ${company.name}, by number of shipments.`}
+        role={role}
+        partners={partners}
+      />
 
       {/* Call to action band */}
       <section className="px-4 py-10">
